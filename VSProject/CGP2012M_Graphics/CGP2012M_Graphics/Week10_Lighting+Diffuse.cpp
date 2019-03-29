@@ -11,8 +11,6 @@
 #include "CircleTexture.h"
 #include "Camera.h"
 #include "Cube.h"
-#include "Model.h"
-#include "ModelLoaderClass.h"
 #ifndef TEXTURECLASS_H
 #define TEXTURECLASS_H
 #ifndef SHADERCLASS_H
@@ -94,6 +92,7 @@ void handleInput();
 #include "JN_Background.h"
 #include "JN_Application.h"
 #include "JN_Camera.h"
+#include "JN_Sphere.h"
 
 #include <memory>
 
@@ -117,50 +116,22 @@ int main(int argc, char *argv[]) {
 	camera = std::make_unique<JN_Camera>();
 	bg = std::make_unique<JN_Background>(viewMatrix, projectionMatrix);
 
-
-
-	//*****************************************************
-	//OpenGL specific data
-
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
-	//objects
-	//create background square
-	//create model
-	//could make this better by specifying the texture in this model header
-	Model model;
-	//create model loader
-	ModelImport modelLoader; 
-	modelLoader.LoadOBJ2("..//..//Assets//Models//blenderSphere.obj", model.vertices, model.texCoords, model.normals, model.indices);
-
-	//*********************
-	//create texture collection
-	//create textures - space for 4, but only using 2
-	Texture texArray[4];
-	texArray[1].load("..//..//Assets//Textures//deathstar.png");
-	texArray[1].setBuffers();
-
-
-	//OpenGL buffers
-	model.setBuffers();
-
-
 	GLuint currentTime = 0;
 	GLuint lastTime = 0;
 	GLuint elapsedTime = 0;
-
-	//lighting for the model
-	//Light position setting
-
+	glm::vec3 lightColour = glm::vec3(1.0f, 1.0f, 0.98f);
 	lightPosition = glm::vec3(1.0f, 0.0f, 0.5f);
 	//light colour setting
 	// Candle:  r:1.0 g:0.57 b:0.16
 	// 100W bulb: r:1.0 g:0.84 b:0.66
 	// direct sunlight: r:1.0 g:1.0 b:0.98
-	glm::vec3 lightColour = glm::vec3(1.0f, 1.0f, 0.98f);
+
+	JN_Sphere model = JN_Sphere("..//..//Assets//Textures//deathstar.png", lightColour, lightPosition, viewMatrix, projectionMatrix);
 
 
 	ambientIntensity = 1.0f;
@@ -192,38 +163,11 @@ int main(int argc, char *argv[]) {
 
 		viewMatrix = glm::lookAt(camera->GetCurrentPos(), camera->GetCurrentTarget(), camera->UP);
 
-		bg->Update(lightCol);
+		bg->Update();
 		bg->Render();
 
-		////set .obj model
-		glUseProgram(model.shaderProgram);
-		//lighting uniforms
-		//get and set light colour and position uniform
-		auto lightColLocation = glGetUniformLocation(model.shaderProgram, "lightCol");
-		glUniform3fv(lightColLocation, 1, glm::value_ptr(lightColour));
-		auto lightPositionLocation = glGetUniformLocation(model.shaderProgram, "lightPos");
-		glUniform3fv(lightPositionLocation, 1, glm::value_ptr(lightPosition));
-		//rotation
-		modelRotate = glm::rotate(modelRotate, (float)elapsedTime / 2000, glm::vec3(0.0f, 1.0f, 0.0f));
-		auto importModelLocation = glGetUniformLocation(model.shaderProgram, "uModel");
-		glUniformMatrix4fv(importModelLocation, 1, GL_FALSE, glm::value_ptr(modelTranslate*modelRotate*modelScale));
-		auto importViewLocation = glGetUniformLocation(model.shaderProgram, "uView");
-		glUniformMatrix4fv(importViewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
-		auto importProjectionLocation = glGetUniformLocation(model.shaderProgram, "uProjection");
-		glUniformMatrix4fv(importProjectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-		//set the normal matrix to send to the vertex shader
-		//Light calculations take place in model-view space
-		//So we calculate the normal matrix in that space
-		normalMatrix = glm::transpose(glm::inverse(modelTranslate*modelRotate*modelScale * viewMatrix));
-		//set the normalMatrix in the shaders
-		glUseProgram(model.shaderProgram);
-		auto normalMatrixLocation = glGetUniformLocation(model.shaderProgram, "uNormalMatrix");
-		glUniformMatrix4fv(normalMatrixLocation, 1, GL_FALSE, glm::value_ptr(normalMatrix));
-		glBindTexture(GL_TEXTURE_2D, texArray[1].texture);
-		model.render();
-
-		//set to wireframe so we can see the circles
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		model.Update();
+		model.Render();
 
 		SDL_GL_SwapWindow(sdl.win);
 

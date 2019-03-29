@@ -13,14 +13,12 @@ public:
 	JN_Square();
 	~JN_Square();
 
-	void Init(std::string texFile, std::string vertexShaderFile, std::string fragmentShaderFile);
+	void Init(std::string);
 	void Render();
-
-	GLuint GetShaderProgram() { return shaderProgram; }
 
 private:
 	GLuint VBO, VAO, EBO;
-	GLuint shaderProgram;
+
 	JN_Texture texture;
 
 	GLfloat vertices[32] = {

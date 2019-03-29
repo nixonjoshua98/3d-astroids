@@ -45,9 +45,6 @@
     <ClInclude Include="Cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ModelLoaderClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -78,6 +75,15 @@
     <ClInclude Include="SDL_Start.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="JN_GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JN_Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JN_Sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Week10_Lighting+Diffuse.cpp">
@@ -102,6 +108,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="JN_Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JN_GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JN_Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JN_Sphere.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

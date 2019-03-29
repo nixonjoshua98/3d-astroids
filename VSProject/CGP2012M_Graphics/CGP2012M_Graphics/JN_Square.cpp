@@ -1,5 +1,4 @@
 #include "JN_Square.h"
-#include "JN_Shader.h"
 
 
 JN_Square::JN_Square()
@@ -12,17 +11,8 @@ JN_Square::~JN_Square()
 }
 
 
-void JN_Square::Init(std::string texFile, std::string vertexShaderFile, std::string fragmentShaderFile)
+void JN_Square::Init(std::string texFile)
 {
-	JN_Shader vShader = JN_Shader(JN_Shader::ShaderType::Vertex, vertexShaderFile);
-	JN_Shader fShader = JN_Shader(JN_Shader::ShaderType::Fragment, fragmentShaderFile);
-
-	shaderProgram = glCreateProgram();
-
-	glAttachShader(shaderProgram, vShader.GetShaderID());
-	glAttachShader(shaderProgram, fShader.GetShaderID());
-	glLinkProgram(shaderProgram);
-
 	texture.Load(texFile.c_str());
 
 	SetBuffers();
@@ -31,9 +21,6 @@ void JN_Square::Init(std::string texFile, std::string vertexShaderFile, std::str
 
 void JN_Square::Render()
 {
-	// Using
-	glUseProgram(shaderProgram);
-
 	// Binds
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, texture.GetTexture());

@@ -8,24 +8,24 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "JN_Square.h"
-#include "JN_Transform.h"
+#include "JN_GameObject.h"
 
-class JN_Background
+class JN_Background: public JN_GameObject
 {
 public:
-	JN_Background();
 	JN_Background(glm::mat4&, glm::mat4&);
 	~JN_Background();
 
-	void Update(glm::vec3);
-	void Render();
+	void Update() override;
+	void Render() override;
 
 private:
-	JN_Transform transform;
 	JN_Square square;
 
 	glm::mat4& viewMatrix;
 	glm::mat4& projectionMatrix;
+
+	glm::vec3 lightCol = glm::vec3(1.0f, 1.0f, 0.98f);
 
 	float ambientIntensity = 1.0f;
 };
