@@ -23,6 +23,8 @@
     <ClInclude Include="JN_Application.h" />
     <ClInclude Include="JN_Background.h" />
     <ClInclude Include="JN_Camera.h" />
+    <ClInclude Include="JN_Cube.h" />
+    <ClInclude Include="JN_Game.h" />
     <ClInclude Include="JN_GameObject.h" />
     <ClInclude Include="JN_Model.h" />
     <ClInclude Include="JN_ScreenBoundaries.h" />
@@ -32,17 +34,13 @@
     <ClInclude Include="JN_Texture.h" />
     <ClInclude Include="JN_Transform.h" />
     <ClInclude Include="ModelLoaderClass.h" />
-    <ClInclude Include="SDL_Start.h" />
-    <ClInclude Include="SDL_ttf.h" />
-    <ClInclude Include="ShaderClass.h" />
-    <ClInclude Include="TextureClass.h" />
-    <ClInclude Include="Textures.h" />
-    <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JN_Application.cpp" />
     <ClCompile Include="JN_Background.cpp" />
     <ClCompile Include="JN_Camera.cpp" />
+    <ClCompile Include="JN_Cube.cpp" />
+    <ClCompile Include="JN_Game.cpp" />
     <ClCompile Include="JN_GameObject.cpp" />
     <ClCompile Include="JN_Model.cpp" />
     <ClCompile Include="JN_Shader.cpp" />
@@ -50,7 +48,7 @@
     <ClCompile Include="JN_Square.cpp" />
     <ClCompile Include="JN_Texture.cpp" />
     <ClCompile Include="JN_Transform.cpp" />
-    <ClCompile Include="Week10_Lighting+Diffuse.cpp" />
+    <ClCompile Include="JN_Main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

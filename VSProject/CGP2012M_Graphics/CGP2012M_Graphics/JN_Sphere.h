@@ -13,7 +13,7 @@ public:
 	void Update() override;
 	void Render() override;
 
-//private:
+private:
 	JN_Model model;
 	JN_Texture texture;
 

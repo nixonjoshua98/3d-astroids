@@ -7,6 +7,7 @@
 JN_Sphere::JN_Sphere(std::string tex, glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::mat4& pMatrix):
 	lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix)
 {
+	// Transforms
 	transform.Scale(glm::vec3(0.7f, 0.7f, 0.7f));
 	transform.Translate(glm::vec3(0.0f, 0.0f, -1.0f));
 
@@ -36,6 +37,7 @@ void JN_Sphere::Update()
 
 void JN_Sphere::Render()
 {
+	glUseProgram(shaderProgram);
 	glBindTexture(GL_TEXTURE_2D, texture.GetTexture());
 	model.Render();
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -71,5 +73,7 @@ void JN_Sphere::SetUniforms()
 	glm::mat4 normalMatrix = glm::transpose(glm::inverse(transform.Multiply() * viewMatrix));
 
 	glUniformMatrix4fv(normalMatrixLocation, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+
+	glUseProgram(0);
 
 }
