@@ -3,7 +3,6 @@
 #include "JN_Texture.h"
 
 #include <SDL_image.h>
-#include <iostream>
 
 
 JN_Texture::~JN_Texture()

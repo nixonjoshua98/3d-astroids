@@ -15,7 +15,7 @@ JN_Sphere::JN_Sphere(std::string tex, glm::vec3& lCol, glm::vec3& lPos, glm::mat
 
 	LoadModelObj();
 
-	SetShaders("..//..//Assets//Shaders//shader_projection_lighting_AD.vert", "..//..//Assets//Shaders//shader_projection_lighting_AD.frag");
+	SetShaders("..//..//Assets//Shaders//Model.vert", "..//..//Assets//Shaders//Model.frag");
 
 	model.SetBuffers();
 
@@ -47,7 +47,7 @@ void JN_Sphere::Render()
 void JN_Sphere::LoadModelObj()
 {
 	ModelImport modelLoader;
-	modelLoader.LoadOBJ2("..//..//Assets//Models//blenderSphere.obj", model.vertices, model.texCoords, model.normals, model.indices);
+	modelLoader.LoadOBJ2("..//..//Assets//Models//Sphere.obj", model.vertices, model.texCoords, model.normals, model.indices);
 }
 
 void JN_Sphere::SetUniforms()

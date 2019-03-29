@@ -1,7 +1,5 @@
 
 
-#include <iostream>
-
 #include "JN_Application.h" 
 
 
@@ -9,7 +7,7 @@
 // Default constructor
 JN_Application::JN_Application()
 {
-	std::cout << "Application!" << std::endl;
+
 }
 
 

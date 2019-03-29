@@ -2,13 +2,12 @@
 #include "JN_Shader.h"
 
 #include <fstream>
-#include <iostream>
 
 
 // Default constructor
 JN_Shader::JN_Shader()
 {
-	std::cout << "Shader!" << std::endl;
+
 }
 
 
@@ -32,8 +31,6 @@ JN_Shader::~JN_Shader()
 void JN_Shader::Load(std::string path)
 {
 	std::ifstream inFile(path);
-
-	std::cout << path << std::endl;
 
 	while (inFile.good())
 	{
