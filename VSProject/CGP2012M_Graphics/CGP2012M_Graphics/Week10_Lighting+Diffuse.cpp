@@ -1,8 +1,5 @@
 
 #include <iostream>
-#include <vector>
-
-#include "SDL_Start.h"
 
 #include <GL/glew.h>
 #include "windows.h"
@@ -20,7 +17,6 @@ SDL_Event event;
 SDL_Window *win;
 bool windowOpen = true;
 bool isFullScreen = false;
-float bubbleSpeed = -0.001f;
 float radius;
 //screen boundaries for collision tests
 float bX_r = 2.0f;
@@ -31,9 +27,6 @@ float bY_b = -1.0f;
 float centreX = 0.0f;
 float centreY = 0.0f;
 //window aspect/width/height
-int w;
-int h;
-float aspect;
 int left;
 int newwidth;
 int newheight;
@@ -58,28 +51,15 @@ void handleInput();
 
 std::unique_ptr<JN_Background> bg;
 std::unique_ptr<JN_Camera> camera;
+std::unique_ptr<JN_Application> app;
 
 int main(int argc, char *argv[]) {
-	//start and initialise SDL
-	SDL_Start sdl;
-	SDL_GLContext context = sdl.Init();
-	win = sdl.win;
+	app = std::make_unique<JN_Application>();
 
-	SDL_GetWindowSize(win, &w, &h);
-	glViewport(0, 0, w, h);
-	aspect = (float)w / (float)h;
-
-	//GLEW initialise
-	glewExperimental = GL_TRUE;
-	GLenum err = glewInit();
+	app->Init();
 
 	camera = std::make_unique<JN_Camera>();
 	bg = std::make_unique<JN_Background>(viewMatrix, projectionMatrix);
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
 
 	GLuint currentTime = 0;
 	GLuint lastTime = 0;
@@ -91,13 +71,12 @@ int main(int argc, char *argv[]) {
 
 	lightCol = glm::vec3(1.0f, 1.0f, 0.98f);
 
-	projectionMatrix = glm::perspective(glm::radians(45.0f), (float)w / (float)h, 0.1f, 100.0f);
+	projectionMatrix = glm::perspective(glm::radians(45.0f), app->aspectRatio, 0.1f, 100.0f);
 	viewMatrix = glm::mat4(1.0f);
 
 	while (windowOpen)
 	{
-		glClearColor(1.0f, 1.0f, 1.0f, 1);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		app->ClearContext();
 		
 		//process inputs
 		handleInput();
@@ -116,12 +95,9 @@ int main(int argc, char *argv[]) {
 		model.Update();
 		model.Render();
 
-		SDL_GL_SwapWindow(sdl.win);
+		SDL_GL_SwapWindow(app->GetWindow());
 
 	}
-	SDL_GL_DeleteContext(context);
-
-	SDL_Quit();
 	return 0;
 }
 
@@ -142,11 +118,7 @@ void handleInput()
 			switch (event.window.event)
 			{
 			case SDL_WINDOWEVENT_RESIZED:
-				std::cout << "Window resized w:" << w << " h:" << h << std::endl;
-				SDL_GetWindowSize(win, &w, &h);
-				newwidth = h * aspect;
-				left = (w - newwidth) / 2;
-				glViewport(left, 0, newwidth, h);
+				app->WindowResized();
 				break;
 				
 
