@@ -1,46 +1,21 @@
-//#include <cstdio>
-//#include <cstdlib>
+
 #include <iostream>
 #include <vector>
 
-//include shape, shader header files
-#include "GLerror.h"
 #include "SDL_Start.h"
-#include "Triangle_T.h"
-#include "Circle.h"
-#include "CircleTexture.h"
-#include "Camera.h"
-#include "Cube.h"
-#ifndef TEXTURECLASS_H
-#define TEXTURECLASS_H
-#ifndef SHADERCLASS_H
-#define SHADERCLASS_H
 
-// // GLEW - OpenGL Extension Wrangler - http://glew.sourceforge.net/
-// // NOTE: include before SDL.h
-#ifndef GLEW_H
-#define GLEW_H
-//#include <GL/glew.h>
+#include <GL/glew.h>
 #include "windows.h"
 
-// SDL - Simple DirectMedia Layer - https://www.libsdl.org/
-#ifndef SDL_H
-#define SDL_H
 #include "SDL.h"
 #include "SDL_image.h"
-//#include "SDL_mixer.h"
-//#include "SDL_ttf.h"
 
-// // - OpenGL Mathematics - https://glm.g-truc.net/
-#define GLM_FORCE_RADIANS // force glm to use radians
-// // NOTE: must do before including GLM headers
-// // NOTE: GLSL uses radians, so will do the same, for consistency
+#define GLM_FORCE_RADIANS
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-//***************
-//variables
 SDL_Event event;
 SDL_Window *win;
 bool windowOpen = true;
@@ -64,26 +39,11 @@ int newwidth;
 int newheight;
 
 //transform matrices
-glm::mat4 modelMatrix;
 glm::mat4 viewMatrix;
 glm::mat4 projectionMatrix;
-glm::mat4 normalMatrix;
-
-glm::mat4 translate;
-glm::mat4 rotate;
-glm::mat4 scale;
-
-glm::mat4 modelRotate;
-glm::mat4 modelScale;
-glm::mat4 modelTranslate;
-float angle = 0;
-
-bool flag = true;
 
 glm::vec3 lightCol;
 glm::vec3 lightPosition;
-glm::vec3 viewPosition;
-float ambientIntensity;
 
 
 void handleInput();
@@ -126,26 +86,13 @@ int main(int argc, char *argv[]) {
 	GLuint elapsedTime = 0;
 	glm::vec3 lightColour = glm::vec3(1.0f, 1.0f, 0.98f);
 	lightPosition = glm::vec3(1.0f, 0.0f, 0.5f);
-	//light colour setting
-	// Candle:  r:1.0 g:0.57 b:0.16
-	// 100W bulb: r:1.0 g:0.84 b:0.66
-	// direct sunlight: r:1.0 g:1.0 b:0.98
 
 	JN_Sphere model = JN_Sphere("..//..//Assets//Textures//deathstar.png", lightColour, lightPosition, viewMatrix, projectionMatrix);
 
-
-	ambientIntensity = 1.0f;
 	lightCol = glm::vec3(1.0f, 1.0f, 0.98f);
 
 	projectionMatrix = glm::perspective(glm::radians(45.0f), (float)w / (float)h, 0.1f, 100.0f);
-
 	viewMatrix = glm::mat4(1.0f);
-	modelScale = glm::mat4(1.0f);
-	modelRotate = glm::mat4(1.0f);
-	modelTranslate = glm::mat4(1.0f);
-
-	modelScale = glm::scale(modelScale, glm::vec3(0.7f, 0.7f, 0.7f));
-	modelTranslate = glm::translate(modelTranslate, glm::vec3(0.0f, 0.0f, -1.0f));
 
 	while (windowOpen)
 	{
@@ -268,7 +215,3 @@ void handleInput()
 		}
 	}
 }
-#endif
-#endif
-#endif
-#endif
