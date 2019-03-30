@@ -20,9 +20,10 @@ JN_Game::JN_Game(std::shared_ptr<JN_Application> app)
 	lightCol = glm::vec3(1.0f, 1.0f, 0.98f);
 	lightPos = glm::vec3(1.0f, 0.0f, 0.5f);
 
-	sphere = std::make_unique<JN_Sphere>("..//..//Assets//Textures//deathstar.png", lightCol, lightPos, viewMatrix, projectionMatrix);
+	bubble = std::make_unique<JN_Bubble>("..//..//Assets//Textures//Circle.png", lightCol, lightPos, viewMatrix, projectionMatrix);
+	heart = std::make_unique<JN_Heart>("..//..//Assets//Textures//Red.png", lightCol, lightPos, viewMatrix, projectionMatrix);
 
-	projectionMatrix = glm::perspective(glm::radians(45.0f), app->aspectRatio, 0.1f, 100.0f);
+	projectionMatrix = glm::perspective(glm::radians(90.0f), app->aspectRatio, 0.1f, 100.0f);
 }
 
 
@@ -52,22 +53,33 @@ void JN_Game::Input()
 	{
 		switch (e.type)
 		{
+			// * * * * SDL_QUIT
 		case SDL_QUIT:
 			isRunning = false;
 			break;
-
+			
+			// * * * * SDL_WINDOWEVENT
 		case SDL_WINDOWEVENT:
 			switch (e.window.event)
 			{
+				// * * * * SDL_WINDOWEVENT_RESIZED
 			case SDL_WINDOWEVENT_RESIZED:
 				app->WindowResized();
 				break;
 			}
 			break;
 
+			// * * * * SDL_KEYDOWN
 		case SDL_KEYDOWN:
-			break;
+			switch (e.key.keysym.sym)
+			{
+				// * * * * F10
+			case SDLK_F10:
+				app->ToggleFullScreen();
+				break;
+			}
 
+			// * * * * SDL_KEYUP
 		case SDL_KEYUP:
 			break;
 		}
@@ -82,7 +94,8 @@ void JN_Game::Update()
 	viewMatrix = glm::lookAt(camera->GetCurrentPos(), camera->GetCurrentTarget(), camera->UP);
 
 	bg->Update();
-	sphere->Update();
+	heart->Update();
+	bubble->Update();
 }
 
 
@@ -97,7 +110,8 @@ void JN_Game::Render()
 	app->ClearContext();
 
 	bg->Render();
-	sphere->Render();
+	heart->Render();
+	bubble->Render();
 
 	SDL_GL_SwapWindow(app->GetWindow());
 }

@@ -1,7 +1,12 @@
 #include "JN_GameObject.h"
 #include "JN_Shader.h"
 
+#include <ctime>
 
+float GetTime()
+{
+	return (time(0) % 3600);
+}
 
 JN_GameObject::JN_GameObject()
 {

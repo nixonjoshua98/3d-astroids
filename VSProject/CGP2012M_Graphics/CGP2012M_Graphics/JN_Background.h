@@ -21,6 +21,7 @@ public:
 
 private:
 	JN_Square square;
+	JN_Square border;
 
 	glm::mat4& viewMatrix;
 	glm::mat4& projectionMatrix;

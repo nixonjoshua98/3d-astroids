@@ -7,6 +7,8 @@
 
 #include "JN_Transform.h"
 
+float GetTime();
+
 class JN_GameObject
 {
 public:

@@ -1,21 +1,24 @@
-#include "JN_Sphere.h"
+#include "JN_Heart.h"
 
 #include "ModelLoaderClass.h"
 
 
-
-JN_Sphere::JN_Sphere(std::string tex, glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::mat4& pMatrix):
+JN_Heart::JN_Heart(std::string tex, glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::mat4& pMatrix):
 	lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix)
 {
 	// Transforms
-	transform.Scale(glm::vec3(0.7f, 0.7f, 0.7f));
+	float angle = glm::radians((float)(rand() % 360));
+
+	transform.Scale(glm::vec3(0.02f, 0.02f, 0.02f));
 	transform.Translate(glm::vec3(0.0f, 0.0f, -1.0f));
+	transform.Translate(glm::vec3(-3.8f, 2.8f, 0.0f));
+	transform.Rotate(1.0f, glm::vec3(-1.0f, 0.0f, 0.0f));
 
 	model = JN_Model();
 
 	LoadModelObj();
 
-	SetShaders("..//..//Assets//Shaders//Model.vert", "..//..//Assets//Shaders//Model.frag");
+	SetShaders("..//..//Assets//Shaders//Model.vert", "..//..//Assets//Shaders//Heart.frag");
 
 	model.SetBuffers();
 
@@ -23,19 +26,25 @@ JN_Sphere::JN_Sphere(std::string tex, glm::vec3& lCol, glm::vec3& lPos, glm::mat
 }
 
 
-JN_Sphere::~JN_Sphere()
+JN_Heart::~JN_Heart()
 {
 
 }
 
 
-void JN_Sphere::Update()
+void JN_Heart::Update()
 {
+	transform.Rotate(0.003f, glm::vec3(0.0f, 0.0f, 1.0f));
+
+	auto pos = transform.GetPosition();
+
+	//std::cout << pos.x << ", " << pos.y << ", " << pos.z << std::endl;
+
 	SetUniforms();
 }
 
 
-void JN_Sphere::Render()
+void JN_Heart::Render()
 {
 	glUseProgram(shaderProgram);
 	glBindTexture(GL_TEXTURE_2D, texture.GetTexture());
@@ -44,13 +53,13 @@ void JN_Sphere::Render()
 }
 
 
-void JN_Sphere::LoadModelObj()
+void JN_Heart::LoadModelObj()
 {
 	ModelImport modelLoader;
-	modelLoader.LoadOBJ2("..//..//Assets//Models//Sphere.obj", model.vertices, model.texCoords, model.normals, model.indices);
+	modelLoader.LoadOBJ2("..//..//Assets//Models//Heart.obj", model.vertices, model.texCoords, model.normals, model.indices);
 }
 
-void JN_Sphere::SetUniforms()
+void JN_Heart::SetUniforms()
 {
 	glUseProgram(shaderProgram);
 
@@ -63,8 +72,6 @@ void JN_Sphere::SetUniforms()
 
 	glUniform3fv(lightColLocation, 1, glm::value_ptr(lightCol));
 	glUniform3fv(lightPositionLocation, 1, glm::value_ptr(lightPos));
-
-	transform.Rotate(0.0005f, glm::vec3(0.0f, 1.0f, 0.0f));
 
 	glUniformMatrix4fv(importModelLocation, 1, GL_FALSE, glm::value_ptr(transform.Multiply()));
 	glUniformMatrix4fv(importViewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));

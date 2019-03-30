@@ -4,11 +4,11 @@
 #include "JN_GameObject.h"
 #include "JN_Texture.h"
 
-class JN_Sphere : public JN_GameObject
+class JN_Bubble : public JN_GameObject
 {
 public:
-	JN_Sphere(std::string, glm::vec3&, glm::vec3&, glm::mat4&, glm::mat4&);
-	~JN_Sphere();
+	JN_Bubble(std::string, glm::vec3&, glm::vec3&, glm::mat4&, glm::mat4&);
+	~JN_Bubble();
 
 	void Update() override;
 	void Render() override;
@@ -21,6 +21,8 @@ private:
 	glm::vec3& lightPos;
 	glm::mat4& viewMatrix;
 	glm::mat4& projectionMatrix;
+
+	glm::vec3 rotateDir;
 
 	void LoadModelObj();
 	void SetUniforms();

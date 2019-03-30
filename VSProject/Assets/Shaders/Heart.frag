@@ -10,13 +10,6 @@ uniform sampler2D aTex;		//uniform holding texture info from main programme
 
 uniform float time;
 
-
-
-float rand(vec2 co)
-{
-    return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
-}
-
 void main()
 {
 	//ambient component
@@ -42,15 +35,6 @@ void main()
     vec3 diffuse = (diffuseStrength * objectDiffuseReflectionCoeff) * lightColour;
 	
 	vec4 textureColour = texture(aTex, textureCoordinate);
-	
-	float randNum = rand(vec2(time, time));
-	float randNum2 = rand(vec2(time + 1, time - 76));
-	float randNum3 = rand(vec2(time - 261, time + 871));
-	
-	
-	textureColour.x *= randNum;
-	textureColour.y *= randNum2;
-	textureColour.z *= randNum3;
 	
 	
 	//apply no lighting, ambient and diffuse components with colour contributed by texture

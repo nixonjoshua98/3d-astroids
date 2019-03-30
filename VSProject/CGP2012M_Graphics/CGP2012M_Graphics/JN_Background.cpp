@@ -5,7 +5,8 @@ JN_Background::JN_Background(glm::mat4& _viewMatrix, glm::mat4& _projectionMatri
 {
 	SetShaders("..//..//Assets//Shaders//Background.vert", "..//..//Assets//Shaders//Background.frag");
 
-	square.Init("..//..//Assets//Textures//Sky.png");
+	square.Init("..//..//Assets//Textures//Background.jpg");
+	border.Init("..//..//Assets//Textures//Border.png");
 
 	transform.Scale(glm::vec3(60.0f, 50.0f, 1.0f));
 	transform.Translate(glm::vec3(0.0f, 0.0f, -2.0f));
@@ -23,6 +24,7 @@ void JN_Background::Render()
 {
 	glUseProgram(shaderProgram);
 	square.Render();
+	border.Render();
 	glUseProgram(0);
 }
 
