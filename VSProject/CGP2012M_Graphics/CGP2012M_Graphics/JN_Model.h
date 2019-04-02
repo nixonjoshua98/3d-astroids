@@ -5,6 +5,8 @@
 #include <glm/glm.hpp>
 #include <vector>
 
+#include "ModelLoaderClass.h"
+
 
 class JN_Model
 {
@@ -23,5 +25,6 @@ public:
 
 	void SetBuffers();
 	void Render();
+	void Load(std::string);
 };
 

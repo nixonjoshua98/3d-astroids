@@ -96,6 +96,6 @@ public:
 				indices.push_back(v3); indices.push_back(t3); indices.push_back(n3);
 			}
 		}//end of while
-		std::cout << "Model: " << *filename << " loaded" << std::endl;
+		std::cout << "Model: " << filename << " loaded" << std::endl;
 	}//end of LoadOBJ
 };

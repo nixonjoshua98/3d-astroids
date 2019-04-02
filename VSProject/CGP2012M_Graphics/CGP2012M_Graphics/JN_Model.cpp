@@ -57,3 +57,9 @@ void JN_Model::Render()
 
 	glBindVertexArray(0);
 }
+
+void JN_Model::Load(std::string file)
+{
+	ModelImport modelLoader;
+	modelLoader.LoadOBJ2(file.c_str(), vertices, texCoords, normals, indices);
+}

@@ -23,11 +23,11 @@
     <ClInclude Include="JN_Application.h" />
     <ClInclude Include="JN_Background.h" />
     <ClInclude Include="JN_Camera.h" />
-    <ClInclude Include="JN_Cube.h" />
     <ClInclude Include="JN_Game.h" />
     <ClInclude Include="JN_GameObject.h" />
     <ClInclude Include="JN_Heart.h" />
     <ClInclude Include="JN_Model.h" />
+    <ClInclude Include="JN_Player.h" />
     <ClInclude Include="JN_ScreenBoundaries.h" />
     <ClInclude Include="JN_Shader.h" />
     <ClInclude Include="JN_Bubble.h" />
@@ -40,17 +40,20 @@
     <ClCompile Include="JN_Application.cpp" />
     <ClCompile Include="JN_Background.cpp" />
     <ClCompile Include="JN_Camera.cpp" />
-    <ClCompile Include="JN_Cube.cpp" />
     <ClCompile Include="JN_Game.cpp" />
     <ClCompile Include="JN_GameObject.cpp" />
     <ClCompile Include="JN_Heart.cpp" />
     <ClCompile Include="JN_Model.cpp" />
+    <ClCompile Include="JN_Player.cpp" />
     <ClCompile Include="JN_Shader.cpp" />
     <ClCompile Include="JN_Bubble.cpp" />
     <ClCompile Include="JN_Square.cpp" />
     <ClCompile Include="JN_Texture.cpp" />
     <ClCompile Include="JN_Transform.cpp" />
     <ClCompile Include="JN_Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -186,7 +189,16 @@
     <Import Project="..\packages\sdl2.nuget.redist.2.0.9\build\native\sdl2.nuget.redist.targets" Condition="Exists('..\packages\sdl2.nuget.redist.2.0.9\build\native\sdl2.nuget.redist.targets')" />
     <Import Project="..\packages\sdl2_image.nuget.redist.2.0.4\build\native\sdl2_image.nuget.redist.targets" Condition="Exists('..\packages\sdl2_image.nuget.redist.2.0.4\build\native\sdl2_image.nuget.redist.targets')" />
     <Import Project="..\packages\sdl2_ttf.nuget.redist.2.0.15\build\native\sdl2_ttf.nuget.redist.targets" Condition="Exists('..\packages\sdl2_ttf.nuget.redist.2.0.15\build\native\sdl2_ttf.nuget.redist.targets')" />
+    <Import Project="..\packages\sdl2.nuget.2.0.9\build\native\sdl2.nuget.targets" Condition="Exists('..\packages\sdl2.nuget.2.0.9\build\native\sdl2.nuget.targets')" />
+    <Import Project="..\packages\sdl2_ttf.nuget.2.0.15\build\native\sdl2_ttf.nuget.targets" Condition="Exists('..\packages\sdl2_ttf.nuget.2.0.15\build\native\sdl2_ttf.nuget.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\sdl2.nuget.2.0.9\build\native\sdl2.nuget.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2.nuget.2.0.9\build\native\sdl2.nuget.targets'))" />
+    <Error Condition="!Exists('..\packages\sdl2_ttf.nuget.2.0.15\build\native\sdl2_ttf.nuget.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\sdl2_ttf.nuget.2.0.15\build\native\sdl2_ttf.nuget.targets'))" />
+  </Target>
   <!-- <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>

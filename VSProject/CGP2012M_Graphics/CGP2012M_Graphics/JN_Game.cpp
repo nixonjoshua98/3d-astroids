@@ -1,7 +1,5 @@
 #include "JN_Game.h"
 
-
-
 JN_Game::JN_Game()
 {
 
@@ -15,13 +13,13 @@ JN_Game::JN_Game(std::shared_ptr<JN_Application> app)
 	screenBoundaries = JN_ScreenBoundaries({2.0f, -2.0f, 1.0f, -1.0f, 0.0f, 0.0f});
 
 	camera = std::make_unique<JN_Camera>();
+	player = std::make_unique<JN_Player>(lightCol, lightPos, viewMatrix, projectionMatrix);
 	bg = std::make_unique<JN_Background>(viewMatrix, projectionMatrix);
 
 	lightCol = glm::vec3(1.0f, 1.0f, 0.98f);
 	lightPos = glm::vec3(1.0f, 0.0f, 0.5f);
 
 	bubble = std::make_unique<JN_Bubble>("..//..//Assets//Textures//Circle.png", lightCol, lightPos, viewMatrix, projectionMatrix);
-	heart = std::make_unique<JN_Heart>("..//..//Assets//Textures//Red.png", lightCol, lightPos, viewMatrix, projectionMatrix);
 
 	projectionMatrix = glm::perspective(glm::radians(90.0f), app->aspectRatio, 0.1f, 100.0f);
 }
@@ -77,11 +75,20 @@ void JN_Game::Input()
 			case SDLK_F10:
 				app->ToggleFullScreen();
 				break;
+
+			default:
+				player->Input(e);
+				break;
 			}
 
 			// * * * * SDL_KEYUP
 		case SDL_KEYUP:
-			break;
+			switch (e.key.keysym.sym)
+			{
+			default:
+				player->Input(e);
+				break;
+			}
 		}
 	}
 }
@@ -94,7 +101,7 @@ void JN_Game::Update()
 	viewMatrix = glm::lookAt(camera->GetCurrentPos(), camera->GetCurrentTarget(), camera->UP);
 
 	bg->Update();
-	heart->Update();
+	player->Update();
 	bubble->Update();
 }
 
@@ -110,7 +117,7 @@ void JN_Game::Render()
 	app->ClearContext();
 
 	bg->Render();
-	heart->Render();
+	player->Render();
 	bubble->Render();
 
 	SDL_GL_SwapWindow(app->GetWindow());

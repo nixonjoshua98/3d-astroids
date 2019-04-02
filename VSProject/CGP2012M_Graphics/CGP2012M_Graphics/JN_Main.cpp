@@ -7,14 +7,14 @@
 
 /*
 	3D Geometry:
-		Pass:	Geometry for bubbles & player
+		Pass:	Geometry for bubbles & player						DONE
 		2:2:	Visible world boundaries							DONE
 		2:1:	Skybox
 		1st:	.obj files with textures							DONE
 		1st+:	Normal data is also loaded
 
 	Playable Game:
-		Pass:	Player can move/rotate and bubbles move
+		Pass:	Player can move/rotate and bubbles move				DONE
 		2:2:	Bubbles stay in world boundaries					DONE
 		2:1:	Bubbles destroyed on hit
 		1st:	Lives/score shown on 2D HUD
@@ -33,7 +33,6 @@
 		2:1:	Random colouring of the bubble is created			DONE
 		1st:	Textures/geometry changed by shaders				DONE
 		1st+:	Animation via shader
-
 */
 
 int main(int argc, char *argv[]) {

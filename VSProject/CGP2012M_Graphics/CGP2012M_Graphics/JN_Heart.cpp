@@ -18,7 +18,7 @@ JN_Heart::JN_Heart(std::string tex, glm::vec3& lCol, glm::vec3& lPos, glm::mat4&
 
 	LoadModelObj();
 
-	SetShaders("..//..//Assets//Shaders//Model.vert", "..//..//Assets//Shaders//Heart.frag");
+	SetShaders("..//..//Assets//Shaders//Heart.vert", "..//..//Assets//Shaders//Heart.frag");
 
 	model.SetBuffers();
 

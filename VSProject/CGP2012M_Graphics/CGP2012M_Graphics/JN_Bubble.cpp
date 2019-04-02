@@ -1,10 +1,7 @@
 #include "JN_Bubble.h"
 
-#include "ModelLoaderClass.h"
 
-
-JN_Bubble::JN_Bubble(std::string tex, glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::mat4& pMatrix):
-	lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix)
+JN_Bubble::JN_Bubble(std::string tex, glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::mat4& pMatrix): lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix)
 {
 	// Transforms
 	float angle = glm::radians((float)(rand() % 360));
@@ -17,9 +14,9 @@ JN_Bubble::JN_Bubble(std::string tex, glm::vec3& lCol, glm::vec3& lPos, glm::mat
 
 	rotateDir = glm::vec3(0.0f, 1.0f, 0.0f);
 
-	LoadModelObj();
+	model.Load("..//..//Assets//Models//Sphere.obj");
 
-	SetShaders("..//..//Assets//Shaders//Model.vert", "..//..//Assets//Shaders//Model.frag");
+	SetShaders("..//..//Assets//Shaders//Bubble.vert", "..//..//Assets//Shaders//Bubble.frag");
 
 	model.SetBuffers();
 
@@ -51,8 +48,7 @@ void JN_Bubble::Update()
 	else if (collideTop || collideBtm)
 		transform.MultiplyDirection(1, -1);
 	
-	
-	transform.Translate(transform.GetDirection() * 0.0020f);
+	transform.Translate(transform.GetDirection() * BUBBLE_SPEED);
 
 	SetUniforms();
 }
@@ -62,16 +58,13 @@ void JN_Bubble::Render()
 {
 	glUseProgram(shaderProgram);
 	glBindTexture(GL_TEXTURE_2D, texture.GetTexture());
+
 	model.Render();
+
 	glBindTexture(GL_TEXTURE_2D, 0);
+	glUseProgram(0);
 }
 
-
-void JN_Bubble::LoadModelObj()
-{
-	ModelImport modelLoader;
-	modelLoader.LoadOBJ2("..//..//Assets//Models//Sphere.obj", model.vertices, model.texCoords, model.normals, model.indices);
-}
 
 void JN_Bubble::SetUniforms()
 {
@@ -100,5 +93,4 @@ void JN_Bubble::SetUniforms()
 	glUniformMatrix4fv(normalMatrixLocation, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 
 	glUseProgram(0);
-
 }
