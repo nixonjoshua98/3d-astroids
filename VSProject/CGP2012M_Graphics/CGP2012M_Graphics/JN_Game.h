@@ -7,11 +7,11 @@
 
 #include "JN_Background.h"
 #include "JN_Camera.h"
-#include "JN_Bubble.h"
 #include "JN_ScreenBoundaries.h"
 #include "JN_Application.h"
 #include "JN_Light.h"
 #include "JN_Player.h"
+#include "JN_BubbleManager.h"
 
 
 class JN_Game
@@ -36,8 +36,8 @@ private:
 
 	std::unique_ptr<JN_Background> bg;
 	std::unique_ptr<JN_Camera> camera;
-	std::unique_ptr<JN_Bubble> bubble;
 	std::unique_ptr<JN_Player> player;
+	std::unique_ptr<JN_BubbleManager> bubbles;
 
 	void Input();
 	void Update();

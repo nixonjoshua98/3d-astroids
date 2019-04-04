@@ -43,9 +43,9 @@ bool JN_Application::InitSDL()
 	{
 		window = SDL_CreateWindow(
 			WINDOW_TITLE,		// Window title
-			0, 0,				// Initial position of the window (x, y)
-			0, 0,				// Width & height of the window
-			SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE	// Window flags
+			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,				// Initial position of the window (x, y)
+			750, 600,			// Width & height of the window
+			SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE	// Window flags
 		);
 
 		if (window)
@@ -82,7 +82,7 @@ bool JN_Application::InitGL()
 // Clears the context
 void JN_Application::ClearContext()
 {
-	glClearColor(1.0f, 1.0f, 1.0f, 1);
+	glClearColor(.0f, .0f, .0f, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
@@ -113,18 +113,11 @@ void JN_Application::WindowResized()
 }
 
 
-// NOTE: This only works if screen was full-screen
 void JN_Application::SetWindowPosition()
 {
 	int w, h;
 
-	SDL_GetWindowSize(window, &w, &h);	// Get current width, height
-
-	SDL_SetWindowSize(window, w / 2, h / 2);					// Set the new geometry
-	SDL_SetWindowFullscreen(window, 0);							// Disable full screen
-	SDL_SetWindowPosition(window, (w / 2) / 2, (h / 2) / 2);	// Center the window
-
-	SDL_GetWindowSize(window, &w, &h);	// Get current width, height
+	SDL_GetWindowSize(window, &w, &h);
 
 	aspectRatio = (float)w / (float)h;
 

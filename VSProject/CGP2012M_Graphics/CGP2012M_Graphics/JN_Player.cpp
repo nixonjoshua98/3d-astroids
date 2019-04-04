@@ -1,10 +1,11 @@
 #include "JN_Player.h"
+#include "JN_Time.h"
 
 
 
 JN_Player::JN_Player(glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::mat4& pMatrix): lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix)
 {
-	transform.Scale(glm::vec3(0.3f, 0.3f, 0.3f));
+	transform.Scale(glm::vec3(0.1f, 0.1f, 0.1f));
 	transform.Translate(glm::vec3(0.0f, 0.0f, -1.0f));
 
 	model = JN_Model();
@@ -75,7 +76,7 @@ void JN_Player::Update()
 
 		auto pos = transform.GetPosition();
 
-		transform.Translate(glm::vec3((float)cos(angle) * PLAYER_SPEED, (float)sin(angle) * PLAYER_SPEED, 0.0f));
+		transform.Translate(glm::vec3((float)cos(angle) * PLAYER_SPEED * JN_Time::deltaTime, (float)sin(angle) * PLAYER_SPEED * JN_Time::deltaTime, 0.0f));
 	}
 
 	SetUniforms();

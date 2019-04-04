@@ -13,7 +13,7 @@ public:
 	JN_Player(glm::vec3&, glm::vec3&, glm::mat4&, glm::mat4&);
 	~JN_Player();
 
-	const float PLAYER_SPEED = (0.002f * 16);
+	const float PLAYER_SPEED = 2.0f;
 
 	void Input(SDL_Event e);
 	void Update() override;
@@ -26,7 +26,6 @@ private:
 	std::unique_ptr<JN_Heart> heart;
 
 	int livesRemaining = 3;
-
 
 	bool isMovingForward = false;
 

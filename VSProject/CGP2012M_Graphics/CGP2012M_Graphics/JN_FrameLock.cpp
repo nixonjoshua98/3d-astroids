@@ -10,7 +10,7 @@
 #include <iostream>
 
 
-JN_FrameLock::JN_FrameLock(int fps, int& _rFps) : rFps(_rFps)
+JN_FrameLock::JN_FrameLock(int fps, float& _rDelta) : rDelta(_rDelta)
 {
 	start = std::chrono::system_clock::now();
 
@@ -26,15 +26,13 @@ JN_FrameLock::~JN_FrameLock()
 
 	actualDeltaTime = CalculateDeltaTime();
 
-	if (actualDeltaTime > 0)
+	if (actualDeltaTime == 0)
 	{
-		rFps = 1000 / actualDeltaTime;
-	}
-	else
-	{
-		rFps = 0;
+		rDelta = 0;
 		std::cout << "Warning: Delta time < 0ms" << std::endl;
 	}
+	else
+		rDelta = actualDeltaTime / 1000;
 }
 
 int JN_FrameLock::CalculateDeltaTime()

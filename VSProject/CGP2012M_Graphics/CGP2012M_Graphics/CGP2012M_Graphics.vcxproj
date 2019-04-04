@@ -22,6 +22,7 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="JN_Application.h" />
     <ClInclude Include="JN_Background.h" />
+    <ClInclude Include="JN_BubbleManager.h" />
     <ClInclude Include="JN_Camera.h" />
     <ClInclude Include="JN_FrameLock.h" />
     <ClInclude Include="JN_Game.h" />
@@ -35,12 +36,15 @@
     <ClInclude Include="JN_Bubble.h" />
     <ClInclude Include="JN_Square.h" />
     <ClInclude Include="JN_Texture.h" />
+    <ClInclude Include="JN_TextureDisplay.h" />
+    <ClInclude Include="JN_Time.h" />
     <ClInclude Include="JN_Transform.h" />
     <ClInclude Include="ModelLoaderClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JN_Application.cpp" />
     <ClCompile Include="JN_Background.cpp" />
+    <ClCompile Include="JN_BubbleManager.cpp" />
     <ClCompile Include="JN_Camera.cpp" />
     <ClCompile Include="JN_FrameLock.cpp" />
     <ClCompile Include="JN_Game.cpp" />
@@ -52,6 +56,8 @@
     <ClCompile Include="JN_Bubble.cpp" />
     <ClCompile Include="JN_Square.cpp" />
     <ClCompile Include="JN_Texture.cpp" />
+    <ClCompile Include="JN_TextureDisplay.cpp" />
+    <ClCompile Include="JN_Time.cpp" />
     <ClCompile Include="JN_Transform.cpp" />
     <ClCompile Include="JN_Main.cpp" />
   </ItemGroup>
@@ -63,7 +69,7 @@
     <ProjectGuid>{FC49E162-563D-4E4A-B6F1-5EB920162ED6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>CGP2012M_Graphics</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

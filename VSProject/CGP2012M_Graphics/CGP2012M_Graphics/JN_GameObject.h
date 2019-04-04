@@ -18,6 +18,8 @@ public:
 	virtual void Update() = 0;
 	virtual void Render() = 0;
 
+	JN_Transform GetTransform() { return transform; }
+
 protected:
 	JN_Transform transform;
 

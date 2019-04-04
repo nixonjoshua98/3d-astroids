@@ -1,26 +1,20 @@
 #include "JN_Bubble.h"
+#include "JN_Time.h"
 
 
-JN_Bubble::JN_Bubble(std::string tex, glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::mat4& pMatrix): lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix)
+JN_Bubble::JN_Bubble(glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::mat4& pMatrix, JN_Model& _model, JN_Texture& tex): 
+	lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix), model(_model), texture(tex)
 {
 	// Transforms
 	float angle = glm::radians((float)(rand() % 360));
 
-	transform.Scale(glm::vec3(0.7f, 0.7f, 0.7f));
+	transform.Scale(glm::vec3(0.3f, 0.3f, 0.3f));
 	transform.Translate(glm::vec3(0.0f, 0.0f, -1.0f));
 	transform.SetDirection(cos(angle), sin(angle), 0.0f);
 
-	model = JN_Model();
-
 	rotateDir = glm::vec3(0.0f, 1.0f, 0.0f);
 
-	model.Load("..//..//Assets//Models//Sphere.obj");
-
 	SetShaders("..//..//Assets//Shaders//Bubble.vert", "..//..//Assets//Shaders//Bubble.frag");
-
-	model.SetBuffers();
-
-	texture.Load(tex);
 }
 
 
@@ -32,23 +26,21 @@ JN_Bubble::~JN_Bubble()
 
 void JN_Bubble::Update()
 {
-	transform.Rotate(0.005f * 16, rotateDir);
+	transform.Rotate(1.0f * JN_Time::deltaTime, rotateDir);
 
 	auto pos = transform.GetPosition();
 
-	//std::cout << pos.x << ", " << pos.y << ", " << pos.z << std::endl;
-
-	bool collideRight = pos.x > 3.4f;
-	bool collideLeft = pos.x < -3.4f;
-	bool collideTop = pos.y < -2.6f;
-	bool collideBtm = pos.y > 2.6f;
+	bool collideRight = pos.x > 3.9f;
+	bool collideLeft = pos.x < -3.9f;
+	bool collideTop = pos.y < -3.0f;
+	bool collideBtm = pos.y > 3.0f;
 
 	if (collideLeft || collideRight)
 		transform.MultiplyDirection(-1, 1);
 	else if (collideTop || collideBtm)
 		transform.MultiplyDirection(1, -1);
 	
-	transform.Translate(transform.GetDirection() * BUBBLE_SPEED);
+	transform.Translate(transform.GetDirection() * BUBBLE_SPEED * JN_Time::deltaTime);
 
 	SetUniforms();
 }
