@@ -20,7 +20,7 @@ JN_Game::JN_Game(std::shared_ptr<JN_Application> app)
 
 	bubble = std::make_unique<JN_Bubble>("..//..//Assets//Textures//Circle.png", light.col, light.pos, viewMatrix, projectionMatrix);
 
-	projectionMatrix = glm::perspective(glm::radians(90.0f), app->aspectRatio, 0.1f, 100.0f);
+	projectionMatrix = glm::perspective(glm::radians(80.0f), app->aspectRatio, 0.1f, 100.0f);
 }
 
 
