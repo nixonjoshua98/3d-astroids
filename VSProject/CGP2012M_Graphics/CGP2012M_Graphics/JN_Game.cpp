@@ -1,4 +1,5 @@
 #include "JN_Game.h"
+#include "JN_FrameLock.h"
 
 JN_Game::JN_Game()
 {
@@ -11,15 +12,13 @@ JN_Game::JN_Game(std::shared_ptr<JN_Application> app)
 	this->app = app;
 
 	screenBoundaries = JN_ScreenBoundaries({2.0f, -2.0f, 1.0f, -1.0f, 0.0f, 0.0f});
+	light = JN_Light{ glm::vec3(1.0f, 0.0f, 0.5f), glm::vec3(1.0f, 1.0f, 0.98f) };
 
 	camera = std::make_unique<JN_Camera>();
-	player = std::make_unique<JN_Player>(lightCol, lightPos, viewMatrix, projectionMatrix);
+	player = std::make_unique<JN_Player>(light.col, light.pos, viewMatrix, projectionMatrix);
 	bg = std::make_unique<JN_Background>(viewMatrix, projectionMatrix);
 
-	lightCol = glm::vec3(1.0f, 1.0f, 0.98f);
-	lightPos = glm::vec3(1.0f, 0.0f, 0.5f);
-
-	bubble = std::make_unique<JN_Bubble>("..//..//Assets//Textures//Circle.png", lightCol, lightPos, viewMatrix, projectionMatrix);
+	bubble = std::make_unique<JN_Bubble>("..//..//Assets//Textures//Circle.png", light.col, light.pos, viewMatrix, projectionMatrix);
 
 	projectionMatrix = glm::perspective(glm::radians(90.0f), app->aspectRatio, 0.1f, 100.0f);
 }
@@ -33,8 +32,11 @@ JN_Game::~JN_Game()
 
 void JN_Game::Run()
 {
+	int f;
 	while (isRunning)
 	{
+		JN_FrameLock lock = JN_FrameLock(60, f);
+
 		Input();
 		Update();
 		LateUpdate();

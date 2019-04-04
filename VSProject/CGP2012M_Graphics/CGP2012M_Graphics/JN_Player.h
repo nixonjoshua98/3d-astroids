@@ -13,7 +13,7 @@ public:
 	JN_Player(glm::vec3&, glm::vec3&, glm::mat4&, glm::mat4&);
 	~JN_Player();
 
-	const float PLAYER_SPEED = 0.002f;
+	const float PLAYER_SPEED = (0.002f * 16);
 
 	void Input(SDL_Event e);
 	void Update() override;

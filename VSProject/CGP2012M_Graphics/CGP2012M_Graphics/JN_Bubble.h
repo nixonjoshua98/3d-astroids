@@ -10,7 +10,7 @@ public:
 	JN_Bubble(std::string, glm::vec3&, glm::vec3&, glm::mat4&, glm::mat4&);
 	~JN_Bubble();
 
-	const float BUBBLE_SPEED = 0.0015f;
+	const float BUBBLE_SPEED = (0.0015f * 16);
 
 	void Update() override;
 	void Render() override;

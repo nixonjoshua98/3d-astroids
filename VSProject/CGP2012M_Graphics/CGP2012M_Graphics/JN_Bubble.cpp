@@ -32,7 +32,7 @@ JN_Bubble::~JN_Bubble()
 
 void JN_Bubble::Update()
 {
-	transform.Rotate(0.005f, rotateDir);
+	transform.Rotate(0.005f * 16, rotateDir);
 
 	auto pos = transform.GetPosition();
 

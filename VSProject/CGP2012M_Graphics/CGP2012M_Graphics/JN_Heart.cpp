@@ -34,7 +34,7 @@ JN_Heart::~JN_Heart()
 
 void JN_Heart::Update()
 {
-	transform.Rotate(0.003f, glm::vec3(0.0f, 0.0f, 1.0f));
+	transform.Rotate(0.003f * 16, glm::vec3(0.0f, 0.0f, 1.0f));
 
 	auto pos = transform.GetPosition();
 

@@ -11,7 +11,7 @@
 		2:2:	Visible world boundaries							DONE
 		2:1:	Skybox
 		1st:	.obj files with textures							DONE
-		1st+:	Normal data is also loaded
+		1st+:	Normal data is also loaded							DONE
 
 	Playable Game:
 		Pass:	Player can move/rotate and bubbles move				DONE

@@ -10,6 +10,7 @@
 #include "JN_Bubble.h"
 #include "JN_ScreenBoundaries.h"
 #include "JN_Application.h"
+#include "JN_Light.h"
 #include "JN_Player.h"
 
 
@@ -28,9 +29,7 @@ private:
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
 
-	glm::vec3 lightCol;
-	glm::vec3 lightPos;
-
+	JN_Light light;
 	JN_ScreenBoundaries screenBoundaries;
 
 	std::shared_ptr<JN_Application> app;
