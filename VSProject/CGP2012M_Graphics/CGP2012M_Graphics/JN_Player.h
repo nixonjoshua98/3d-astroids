@@ -19,11 +19,13 @@ public:
 	void Update() override;
 	void Render() override;
 
+	bool IsDead() { return livesRemaining == 0; }
+
 private:
 	JN_Model model;
 	JN_Texture texture;
 
-	std::unique_ptr<JN_Heart> heart;
+	std::vector<JN_Heart> hearts;
 
 	int livesRemaining = 3;
 

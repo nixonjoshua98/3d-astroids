@@ -99,11 +99,14 @@ void JN_Game::Input()
 
 void JN_Game::Update()
 {
-	//camera->newTarget = player->GetTransform().GetPosition();
+	if (player->IsDead())
+	{
+		isRunning = false;
+	}
+
+	camera->newTarget = player->GetTransform().GetPosition();
 
 	light.pos = camera->newPos;
-
-	//camera->newPos =  player->GetTransform().GetPosition();
 
 	camera->Update();
 
@@ -117,7 +120,7 @@ void JN_Game::Update()
 
 void JN_Game::LateUpdate()
 {
-
+	bubbles->SpawnBubble();
 }
 
 

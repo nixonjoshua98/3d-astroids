@@ -1,29 +1,16 @@
 #include "JN_Heart.h"
-#include "JN_Time.h"
-
-#include "ModelLoaderClass.h"
 
 
-JN_Heart::JN_Heart(std::string tex, glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::mat4& pMatrix):
-	lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix)
+
+JN_Heart::JN_Heart(float xPos, glm::mat4& _projectionMatrix) : projectionMatrix(_projectionMatrix)
 {
-	// Transforms
-	float angle = glm::radians((float)(rand() % 360));
+	SetShaders("..//..//Assets//Shaders//Heart2D.vert", "..//..//Assets//Shaders//Heart2D.frag");
 
-	transform.Scale(glm::vec3(0.02f, 0.02f, 0.02f));
-	transform.Translate(glm::vec3(0.0f, 0.0f, -1.0f));
-	transform.Translate(glm::vec3(-3.8f, 2.8f, 0.0f));
-	transform.Rotate(1.0f, glm::vec3(-1.0f, 0.0f, 0.0f));
+	square.Init("..//..//Assets//Textures//Heart.png");
 
-	model = JN_Model();
+	transform.Scale(glm::vec3(1.0f, 1.0f, 1.0f));
 
-	LoadModelObj();
-
-	SetShaders("..//..//Assets//Shaders//Heart.vert", "..//..//Assets//Shaders//Heart.frag");
-
-	model.SetBuffers();
-
-	texture.Load(tex);
+	transform.Translate(glm::vec3(xPos, 1.5f, -2.0f));
 }
 
 
@@ -35,53 +22,30 @@ JN_Heart::~JN_Heart()
 
 void JN_Heart::Update()
 {
-	transform.Rotate(1.0f * JN_Time::deltaTime, glm::vec3(0.0f, 0.0f, 1.0f));
+	glUseProgram(shaderProgram);
 
-	auto pos = transform.GetPosition();
+	auto uLightColourLoc = glGetUniformLocation(shaderProgram, "uLightColour");
+	auto uAmbientIntensityLoc = glGetUniformLocation(shaderProgram, "uAmbientIntensity");
+	auto uModelLoc = glGetUniformLocation(shaderProgram, "uModel");
+	auto uViewLoc = glGetUniformLocation(shaderProgram, "uView");
+	auto uProjectionLoc = glGetUniformLocation(shaderProgram, "uProjection");
 
-	//std::cout << pos.x << ", " << pos.y << ", " << pos.z << std::endl;
+	glProgramUniform3fv(shaderProgram, uLightColourLoc, 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
+	glProgramUniform1f(shaderProgram, uAmbientIntensityLoc, 1.0f);
 
-	SetUniforms();
+	glUniformMatrix4fv(uModelLoc, 1, GL_FALSE, glm::value_ptr(transform.MultiplyNoRotate()));
+	glUniformMatrix4fv(uViewLoc, 1, GL_FALSE, glm::value_ptr(glm::mat4(1.0f)));
+	glUniformMatrix4fv(uProjectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+
+	glUseProgram(0);
 }
 
 
 void JN_Heart::Render()
 {
 	glUseProgram(shaderProgram);
-	glBindTexture(GL_TEXTURE_2D, texture.GetTexture());
-	model.Render();
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
 
-
-void JN_Heart::LoadModelObj()
-{
-	ModelImport modelLoader;
-	modelLoader.LoadOBJ2("..//..//Assets//Models//Heart.obj", model.vertices, model.texCoords, model.normals, model.indices);
-}
-
-void JN_Heart::SetUniforms()
-{
-	glUseProgram(shaderProgram);
-
-	auto lightColLocation = glGetUniformLocation(shaderProgram, "lightCol");
-	auto normalMatrixLocation = glGetUniformLocation(shaderProgram, "uNormalMatrix");
-	auto importViewLocation = glGetUniformLocation(shaderProgram, "uView");
-	auto lightPositionLocation = glGetUniformLocation(shaderProgram, "lightPos");
-	auto importModelLocation = glGetUniformLocation(shaderProgram, "uModel");
-	auto importProjectionLocation = glGetUniformLocation(shaderProgram, "uProjection");
-
-	glUniform3fv(lightColLocation, 1, glm::value_ptr(lightCol));
-	glUniform3fv(lightPositionLocation, 1, glm::value_ptr(lightPos));
-
-	glUniformMatrix4fv(importModelLocation, 1, GL_FALSE, glm::value_ptr(transform.Multiply()));
-	glUniformMatrix4fv(importViewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
-	glUniformMatrix4fv(importProjectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-
-	glm::mat4 normalMatrix = glm::transpose(glm::inverse(transform.Multiply() * viewMatrix));
-
-	glUniformMatrix4fv(normalMatrixLocation, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+	square.Render();
 
 	glUseProgram(0);
-
 }

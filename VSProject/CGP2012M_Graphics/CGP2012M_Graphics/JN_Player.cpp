@@ -10,7 +10,8 @@ JN_Player::JN_Player(glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::
 
 	model = JN_Model();
 
-	heart = std::make_unique<JN_Heart>("..//..//Assets//Textures//Red.png", lightCol, lightPos, viewMatrix, projectionMatrix);
+	for (int i = 0; i < livesRemaining; i++)
+		hearts.emplace_back(-0.2f + (i * 0.2f), projectionMatrix);
 
 	model.Load("..//..//Assets//Models//Cube.obj");
 
@@ -24,7 +25,7 @@ JN_Player::JN_Player(glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::
 
 JN_Player::~JN_Player()
 {
-
+	hearts.clear();
 }
 
 
@@ -60,6 +61,10 @@ void JN_Player::Input(SDL_Event e)
 		case SDLK_w:
 			isMovingForward = false;
 			break;
+
+		case SDLK_z:
+			livesRemaining--;
+			break;
 		}
 		break;
 	}
@@ -68,7 +73,8 @@ void JN_Player::Input(SDL_Event e)
 
 void JN_Player::Update()
 {
-	heart->Update();
+	for (int i = 0; i < livesRemaining; i++)
+		hearts[i].Update();
 
 	if (isMovingForward)
 	{
@@ -85,7 +91,8 @@ void JN_Player::Update()
 
 void JN_Player::Render()
 {
-	heart->Render();
+	for (int i = 0; i < livesRemaining; i++)
+		hearts[i].Render();
 
 	glUseProgram(shaderProgram);
 	glBindTexture(GL_TEXTURE_2D, texture.GetTexture());

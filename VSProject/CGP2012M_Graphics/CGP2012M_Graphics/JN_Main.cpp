@@ -17,7 +17,7 @@
 		Pass:	Player can move/rotate and bubbles move				DONE
 		2:2:	Bubbles stay in world boundaries					DONE
 		2:1:	Bubbles destroyed on hit
-		1st:	Lives/score shown on 2D HUD
+		1st:	Lives/score shown on 2D HUD							DONE
 		1st+:	Gameplay modifying feature
 
 	Lighting & Textures:
