@@ -13,6 +13,7 @@ JN_Game::JN_Game(std::shared_ptr<JN_Application> app)
 	this->app = app;
 
 	camera = std::make_unique<JN_Camera>();
+	skybox = std::make_unique<JN_Skybox>();
 	player = std::make_unique<JN_Player>(light.col, light.pos, viewMatrix, projectionMatrix);
 	bg = std::make_unique<JN_Background>(viewMatrix, projectionMatrix);
 	bubbles = std::make_unique<JN_BubbleManager>(light.col, light.pos, viewMatrix, projectionMatrix);
@@ -112,6 +113,7 @@ void JN_Game::Update()
 
 	viewMatrix = glm::lookAt(camera->GetCurrentPos(), camera->GetCurrentTarget(), camera->UP);
 
+	skybox->Update(glm::mat4(glm::mat3(viewMatrix)), projectionMatrix);
 	bg->Update();
 	player->Update();
 	bubbles->Update();
@@ -120,7 +122,7 @@ void JN_Game::Update()
 
 void JN_Game::LateUpdate()
 {
-	bubbles->SpawnBubble();
+	//bubbles->SpawnBubble();
 }
 
 
@@ -128,7 +130,8 @@ void JN_Game::Render()
 {
 	app->ClearContext();
 
-	bg->Render();
+	skybox->Render();
+	//bg->Render();
 	player->Render();
 	bubbles->Render();
 

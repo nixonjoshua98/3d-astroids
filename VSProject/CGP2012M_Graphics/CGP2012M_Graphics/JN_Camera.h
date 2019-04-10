@@ -27,6 +27,8 @@ public:
 	glm::vec3 GetCurrentPos() { return currentPos; }
 	glm::vec3 GetCurrentTarget() { return currentTarget; }
 
+	glm::mat4 GetViewMatrix() { return viewMatrix; }
+
 private:
 	glm::vec3 currentPos;
 	glm::vec3 currentTarget;

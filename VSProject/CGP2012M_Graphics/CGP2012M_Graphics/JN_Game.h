@@ -12,6 +12,7 @@
 #include "JN_Light.h"
 #include "JN_Player.h"
 #include "JN_BubbleManager.h"
+#include "JN_Skybox.h"
 
 
 class JN_Game
@@ -26,8 +27,8 @@ public:
 private:
 	bool isRunning = true;
 
-	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
+	glm::mat4 viewMatrix;
 
 	JN_Light light;
 	JN_ScreenBoundaries screenBoundaries;
@@ -38,6 +39,7 @@ private:
 	std::unique_ptr<JN_Camera> camera;
 	std::unique_ptr<JN_Player> player;
 	std::unique_ptr<JN_BubbleManager> bubbles;
+	std::unique_ptr<JN_Skybox> skybox;
 
 	void Input();
 	void Update();

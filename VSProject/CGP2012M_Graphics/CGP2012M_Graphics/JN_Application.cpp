@@ -74,6 +74,7 @@ bool JN_Application::InitGL()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
+	//glEnable(GL_DEPTH_TEST);
 
 	return glewInit() == GLEW_OK;
 }

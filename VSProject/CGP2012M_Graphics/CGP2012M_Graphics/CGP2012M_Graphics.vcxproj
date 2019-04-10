@@ -34,6 +34,7 @@
     <ClInclude Include="JN_ScreenBoundaries.h" />
     <ClInclude Include="JN_Shader.h" />
     <ClInclude Include="JN_Bubble.h" />
+    <ClInclude Include="JN_Skybox.h" />
     <ClInclude Include="JN_Square.h" />
     <ClInclude Include="JN_Texture.h" />
     <ClInclude Include="JN_TextureDisplay.h" />
@@ -54,6 +55,7 @@
     <ClCompile Include="JN_Player.cpp" />
     <ClCompile Include="JN_Shader.cpp" />
     <ClCompile Include="JN_Bubble.cpp" />
+    <ClCompile Include="JN_Skybox.cpp" />
     <ClCompile Include="JN_Square.cpp" />
     <ClCompile Include="JN_Texture.cpp" />
     <ClCompile Include="JN_TextureDisplay.cpp" />

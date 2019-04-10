@@ -2,6 +2,7 @@
 #include "JN_Shader.h"
 
 #include <fstream>
+#include <iostream>
 
 
 // Default constructor
@@ -64,7 +65,14 @@ void JN_Shader::Compile()
 	glCompileShader(shaderID);
 
 	GLint success;
+	GLchar infoLog[512];
 	glGetShaderiv(shaderID, GL_COMPILE_STATUS, &success);
+
+	if (!success)
+	{
+		glGetShaderInfoLog(shaderID, 512, NULL, infoLog);
+		std::cout << "ERROR::SHADER::COMPILATION_FAILED\n" << infoLog << std::endl;
+	}
 }
 
 

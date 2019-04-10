@@ -5,6 +5,8 @@
 #include <memory>
 #include <ctime>
 
+// https://learnopengl.com/Advanced-OpenGL/Cubemaps
+
 /*
 	3D Geometry:
 		Pass:	Geometry for bubbles & player						DONE
