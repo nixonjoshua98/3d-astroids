@@ -74,7 +74,6 @@ bool JN_Application::InitGL()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
-	//glEnable(GL_DEPTH_TEST);
 
 	return glewInit() == GLEW_OK;
 }
@@ -83,7 +82,7 @@ bool JN_Application::InitGL()
 // Clears the context
 void JN_Application::ClearContext()
 {
-	glClearColor(.0f, .0f, .0f, 1);
+	glClearColor(1.0f, 1.0f, 1.0f, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 

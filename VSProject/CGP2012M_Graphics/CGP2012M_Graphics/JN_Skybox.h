@@ -25,7 +25,7 @@ public:
 private:
 	GLuint VBO, VAO;
 
-	float vertices[108] = {
+	GLfloat vertices[108] = {
 		-1.0f,  1.0f, -1.0f,
 		-1.0f, -1.0f, -1.0f,
 		1.0f, -1.0f, -1.0f,

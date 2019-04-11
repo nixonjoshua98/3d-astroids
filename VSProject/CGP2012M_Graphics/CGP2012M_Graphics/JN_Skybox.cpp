@@ -8,12 +8,12 @@ JN_Skybox::JN_Skybox()
 {
 	std::vector<std::string> faces
 	{
-		"..//..//Assets//Textures//Skybox//Space_Right.png",
-		"..//..//Assets//Textures//Skybox//Space_Left.png",
+		"..//..//Assets//Textures//Skybox//Space_Front.png",
+		"..//..//Assets//Textures//Skybox//Space_Back.png",
 		"..//..//Assets//Textures//Skybox//Space_Top.png",
 		"..//..//Assets//Textures//Skybox//Space_Bottom.png",
-		"..//..//Assets//Textures//Skybox//Space_Front.png",
-		"..//..//Assets//Textures//Skybox//Space_Back.png"
+		"..//..//Assets//Textures//Skybox//Space_Right.png",
+		"..//..//Assets//Textures//Skybox//Space_Left.png"
 	};
 
 	glGenTextures(1, &texture);
@@ -73,6 +73,7 @@ void JN_Skybox::Update(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 void JN_Skybox::Render()
 {
 	glDepthMask(GL_FALSE);
+	glUseProgram(shaderProgram);
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
 

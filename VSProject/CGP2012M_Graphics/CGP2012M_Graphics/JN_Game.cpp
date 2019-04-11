@@ -37,7 +37,7 @@ void JN_Game::Run()
 {
 	while (isRunning)
 	{
-		JN_FrameLock lock = JN_FrameLock(500, JN_Time::deltaTime);
+		JN_FrameLock lock = JN_FrameLock(60, JN_Time::deltaTime);
 
 		Input();
 		Update();

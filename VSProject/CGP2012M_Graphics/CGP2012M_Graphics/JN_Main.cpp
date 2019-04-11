@@ -11,7 +11,7 @@
 	3D Geometry:
 		Pass:	Geometry for bubbles & player						DONE
 		2:2:	Visible world boundaries							DONE
-		2:1:	Skybox
+		2:1:	Skybox												DONE
 		1st:	.obj files with textures							DONE
 		1st+:	Normal data is also loaded							DONE
 
