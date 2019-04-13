@@ -34,6 +34,16 @@ glm::mat4 JN_Transform::MultiplyNoRotate()
 }
 
 
+void JN_Transform::SetX(float x)
+{
+	translate[3][0] = x;
+}
+
+void JN_Transform::SetY(float y)
+{
+	translate[3][1] = y;
+}
+
 void JN_Transform::SetScale(glm::mat4 s)
 {
 	scale = s;

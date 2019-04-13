@@ -37,7 +37,6 @@
     <ClInclude Include="JN_Skybox.h" />
     <ClInclude Include="JN_Square.h" />
     <ClInclude Include="JN_Texture.h" />
-    <ClInclude Include="JN_TextureDisplay.h" />
     <ClInclude Include="JN_Time.h" />
     <ClInclude Include="JN_Transform.h" />
     <ClInclude Include="ModelLoaderClass.h" />
@@ -58,7 +57,6 @@
     <ClCompile Include="JN_Skybox.cpp" />
     <ClCompile Include="JN_Square.cpp" />
     <ClCompile Include="JN_Texture.cpp" />
-    <ClCompile Include="JN_TextureDisplay.cpp" />
     <ClCompile Include="JN_Time.cpp" />
     <ClCompile Include="JN_Transform.cpp" />
     <ClCompile Include="JN_Main.cpp" />

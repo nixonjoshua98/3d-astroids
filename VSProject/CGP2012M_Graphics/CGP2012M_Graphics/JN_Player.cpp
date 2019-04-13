@@ -5,7 +5,7 @@
 
 JN_Player::JN_Player(glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::mat4& pMatrix): lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix)
 {
-	transform.Scale(glm::vec3(0.1f, 0.1f, 0.1f));
+	transform.Scale(glm::vec3(0.2f, 0.2f, 0.2f));
 	transform.Translate(glm::vec3(0.0f, 0.0f, -1.0f));
 
 	model = JN_Model();
@@ -51,6 +51,9 @@ void JN_Player::Input(SDL_Event e)
 			break;
 
 		case SDLK_SPACE:
+			if (!isHoldingSpace)
+				Shoot();
+			isHoldingSpace = true;
 			break;
 		}
 		break;
@@ -65,6 +68,9 @@ void JN_Player::Input(SDL_Event e)
 		case SDLK_z:
 			livesRemaining--;
 			break;
+		case SDLK_SPACE:
+			isHoldingSpace = false;
+			break;
 		}
 		break;
 	}
@@ -73,6 +79,9 @@ void JN_Player::Input(SDL_Event e)
 
 void JN_Player::Update()
 {
+	// L/R 5.7
+	// T/B 4.4
+
 	for (int i = 0; i < livesRemaining; i++)
 		hearts[i].Update();
 
@@ -80,9 +89,28 @@ void JN_Player::Update()
 	{
 		float angle = transform.GetAngle();
 
+		transform.Translate(glm::vec3((float)cos(angle) * PLAYER_SPEED * JN_Time::deltaTime, (float)sin(angle) * PLAYER_SPEED * JN_Time::deltaTime, 0.0f));
+
 		auto pos = transform.GetPosition();
 
-		transform.Translate(glm::vec3((float)cos(angle) * PLAYER_SPEED * JN_Time::deltaTime, (float)sin(angle) * PLAYER_SPEED * JN_Time::deltaTime, 0.0f));
+		std::cout << pos.x << ", " << pos.y << std::endl;
+
+		// Ugly but this works and is readable
+		if (pos.x >= 5.7 || pos.x <= -5.7)
+		{
+			if (pos.x >= 5.7)
+				transform.SetX(5.69);
+			else
+				transform.SetX(-5.69);
+		}
+		
+		if (pos.y >= 4.4 || pos.y <= -4.4)
+		{
+			if (pos.y >= 4.4)
+				transform.SetY(4.39);
+			else
+				transform.SetY(-4.39);
+		}
 	}
 
 	SetUniforms();
@@ -127,4 +155,9 @@ void JN_Player::SetUniforms()
 	glUniformMatrix4fv(normalMatrixLocation, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 
 	glUseProgram(0);
+}
+
+void JN_Player::Shoot()
+{
+	std::cout << "Shoot!\n";
 }

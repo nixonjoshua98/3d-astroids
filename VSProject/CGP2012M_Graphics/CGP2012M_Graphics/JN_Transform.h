@@ -23,7 +23,6 @@ public:
 
 	/* - - - - GETS - - - - */
 	glm::vec3 GetDirection() { return direction; }
-	//glm::vec3 GetPosition() { return glm::vec3(translate[3][0] * ((float)800 / 600), translate[3][1], translate[3][2]); }
 	glm::vec3 GetPosition() { return glm::vec3(translate[3][0], translate[3][1], translate[3][2]); }
 	float GetMagnitude();
 	float GetAngle() { return angle; }
@@ -46,6 +45,8 @@ public:
 
 
 	/* - - - - SETS - - - - */
+	void SetX(float x);
+	void SetY(float y);
 	void SetScale(glm::mat4 s);
 	void SetDirection(float x, float y, float z) { direction = glm::vec3(x, y, z); }
 };

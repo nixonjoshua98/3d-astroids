@@ -5,8 +5,6 @@
 #include <memory>
 #include <ctime>
 
-// https://learnopengl.com/Advanced-OpenGL/Cubemaps
-
 /*
 	3D Geometry:
 		Pass:	Geometry for bubbles & player						DONE
@@ -33,7 +31,7 @@
 		Pass:	Shaders in own file									DONE
 		2:2:	Pass variable data									DONE
 		2:1:	Random colouring of the bubble is created			DONE
-		1st:	Textures/geometry changed by shaders				DONE
+		1st:	Textures/geometry changed by shaders				
 		1st+:	Animation via shader
 */
 

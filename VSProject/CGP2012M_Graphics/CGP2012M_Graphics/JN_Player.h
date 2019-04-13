@@ -29,6 +29,7 @@ private:
 
 	int livesRemaining = 3;
 
+	bool isHoldingSpace = false;
 	bool isMovingForward = false;
 
 	glm::vec3& lightCol;
@@ -37,5 +38,6 @@ private:
 	glm::mat4& projectionMatrix;
 
 	void SetUniforms();
+	void Shoot();
 };
 

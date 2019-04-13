@@ -4,7 +4,7 @@
 
 
 
-JN_Skybox::JN_Skybox()
+JN_Skybox::JN_Skybox(glm::mat4& view, glm::mat4& pro): viewMatrix(view), projectionMatrix(pro)
 {
 	std::vector<std::string> faces
 	{
@@ -56,14 +56,14 @@ JN_Skybox::~JN_Skybox()
 }
 
 
-void JN_Skybox::Update(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
+void JN_Skybox::Update()
 {
 	glUseProgram(shaderProgram);
 	
 	auto uView = glGetUniformLocation(shaderProgram, "uView");
 	auto uProjection = glGetUniformLocation(shaderProgram, "uProjection");
 
-	glUniformMatrix4fv(uView, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	glUniformMatrix4fv(uView, 1, GL_FALSE, glm::value_ptr(glm::mat4(glm::mat3(viewMatrix))));
 	glUniformMatrix4fv(uProjection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
 	glUseProgram(0);

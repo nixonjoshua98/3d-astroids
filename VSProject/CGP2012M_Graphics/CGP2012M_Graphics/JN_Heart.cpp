@@ -10,7 +10,7 @@ JN_Heart::JN_Heart(float xPos, glm::mat4& _projectionMatrix) : projectionMatrix(
 
 	transform.Scale(glm::vec3(1.0f, 1.0f, 1.0f));
 
-	transform.Translate(glm::vec3(xPos, 1.5f, -2.0f));
+	transform.Translate(glm::vec3(xPos, 1.75f, -2.0f));
 }
 
 

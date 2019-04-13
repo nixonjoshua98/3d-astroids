@@ -12,14 +12,10 @@
 class JN_Skybox : public JN_GameObject
 {
 public:
-	JN_Skybox();
+	JN_Skybox(glm::mat4&, glm::mat4&);
 	~JN_Skybox();
 
-	void Update(glm::mat4, glm::mat4);
-	void Update()
-	{
-
-	}
+	void Update();
 	void Render();
 
 private:
@@ -69,6 +65,9 @@ private:
 		1.0f, -1.0f,  1.0f
 	};
 	GLuint texture;
+
+	glm::mat4& viewMatrix;
+	glm::mat4& projectionMatrix;
 
 	void SetBuffers();
 };

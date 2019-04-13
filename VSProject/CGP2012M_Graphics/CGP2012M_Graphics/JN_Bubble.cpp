@@ -6,7 +6,7 @@ JN_Bubble::JN_Bubble(glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::
 	lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix), model(_model), texture(tex)
 {
 	// Transforms
-	float angle = glm::radians((float)(rand() % 360));
+	float angle = glm::radians(90.0f);// glm::radians((float)(rand() % 360));
 
 	transform.Scale(glm::vec3(0.3f, 0.3f, 0.3f));
 	transform.Translate(glm::vec3(0.0f, 0.0f, -1.0f));
@@ -30,15 +30,21 @@ void JN_Bubble::Update()
 
 	auto pos = transform.GetPosition();
 
-	bool collideRight = pos.x > 3.9f;
-	bool collideLeft = pos.x < -3.9f;
-	bool collideTop = pos.y < -3.0f;
-	bool collideBtm = pos.y > 3.0f;
+	bool collideRight = pos.x > 5.8f;
+	bool collideLeft = pos.x < -5.8f;
+	bool collideBtm = pos.y < -4.5f;
+	bool collideTop = pos.y > 4.5f;
 
 	if (collideLeft || collideRight)
+	{
 		transform.MultiplyDirection(-1, 1);
+
+	}
 	else if (collideTop || collideBtm)
+	{
 		transform.MultiplyDirection(1, -1);
+		//std::cout << pos.x << ", " << pos.y << "\n";
+	}
 	
 	transform.Translate(transform.GetDirection() * BUBBLE_SPEED * JN_Time::deltaTime);
 

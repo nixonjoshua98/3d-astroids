@@ -65,9 +65,6 @@
     <ClInclude Include="JN_FrameLock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JN_TextureDisplay.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="JN_Time.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -122,9 +119,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="JN_FrameLock.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="JN_TextureDisplay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="JN_Time.cpp">
