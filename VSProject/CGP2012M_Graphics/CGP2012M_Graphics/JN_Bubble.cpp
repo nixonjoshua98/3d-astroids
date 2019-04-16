@@ -6,7 +6,7 @@ JN_Bubble::JN_Bubble(glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::
 	lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix), model(_model), texture(tex)
 {
 	// Transforms
-	float angle = glm::radians(90.0f);// glm::radians((float)(rand() % 360));
+	float angle =  glm::radians((float)(rand() % 360));
 
 	transform.Scale(glm::vec3(0.3f, 0.3f, 0.3f));
 	transform.Translate(glm::vec3(0.0f, 0.0f, -1.0f));

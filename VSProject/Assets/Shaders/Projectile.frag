@@ -14,8 +14,8 @@ void main()
 	//ambient component
 	//********************************
 	//set the ambient coeff from material
-	float lightAmbientStrength = 0.0f;
-	vec3 objectAmbientReflectionCoeff = vec3(0.0f, 0.0f, 0.0f);
+	float lightAmbientStrength = 0.3f;
+	vec3 objectAmbientReflectionCoeff = vec3(1.0f, 1.0f, 1.0f);
 	vec3 ambient = (lightAmbientStrength * objectAmbientReflectionCoeff) * lightColour;
 	
 	//diffuse component

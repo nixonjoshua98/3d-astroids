@@ -15,6 +15,10 @@ public:
 	void Update();
 	void Render();
 
+	int CollideWithPlayer(glm::vec3 plr);
+
+	void CollideWithProjectiles(std::vector<glm::vec3> projectiles);
+
 private:
 	JN_Model model;
 	JN_Texture texture;

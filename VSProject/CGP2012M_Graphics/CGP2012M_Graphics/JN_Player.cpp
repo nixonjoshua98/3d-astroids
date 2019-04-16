@@ -3,10 +3,13 @@
 
 
 
-JN_Player::JN_Player(glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::mat4& pMatrix): lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix)
+JN_Player::JN_Player(glm::vec3& lCol, glm::vec3& lPos, glm::vec3& lCol2, glm::vec3& lPos2, glm::mat4& vMatrix, glm::mat4& pMatrix): 
+	lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix), lightCol2(lCol2), lightPos2(lPos2)
 {
 	transform.Scale(glm::vec3(0.2f, 0.2f, 0.2f));
 	transform.Translate(glm::vec3(0.0f, 0.0f, -1.0f));
+
+	projectiles = std::make_unique<JN_ProjectileManager>(lightCol, lightPos, viewMatrix, projectionMatrix);
 
 	model = JN_Model();
 
@@ -15,7 +18,7 @@ JN_Player::JN_Player(glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::
 
 	model.Load("..//..//Assets//Models//Cube.obj");
 
-	SetShaders("..//..//Assets//Shaders//Player.vert", "..//..//Assets//Shaders//Player.frag");
+	SetShaders("..//..//Assets//Shaders//MultiLights.vert", "..//..//Assets//Shaders//MultiLights.frag");
 
 	model.SetBuffers();
 
@@ -66,7 +69,7 @@ void JN_Player::Input(SDL_Event e)
 			break;
 
 		case SDLK_z:
-			livesRemaining--;
+			//livesRemaining--;
 			break;
 		case SDLK_SPACE:
 			isHoldingSpace = false;
@@ -85,15 +88,13 @@ void JN_Player::Update()
 	for (int i = 0; i < livesRemaining; i++)
 		hearts[i].Update();
 
+	projectiles->Update();
+
 	if (isMovingForward)
 	{
-		float angle = transform.GetAngle();
-
-		transform.Translate(glm::vec3((float)cos(angle) * PLAYER_SPEED * JN_Time::deltaTime, (float)sin(angle) * PLAYER_SPEED * JN_Time::deltaTime, 0.0f));
+		transform.MoveForward2D(PLAYER_SPEED * JN_Time::deltaTime);
 
 		auto pos = transform.GetPosition();
-
-		std::cout << pos.x << ", " << pos.y << std::endl;
 
 		// Ugly but this works and is readable
 		if (pos.x >= 5.7 || pos.x <= -5.7)
@@ -122,6 +123,8 @@ void JN_Player::Render()
 	for (int i = 0; i < livesRemaining; i++)
 		hearts[i].Render();
 
+	projectiles->Render();
+
 	glUseProgram(shaderProgram);
 	glBindTexture(GL_TEXTURE_2D, texture.GetTexture());
 
@@ -131,20 +134,38 @@ void JN_Player::Render()
 	glUseProgram(0);
 }
 
+void JN_Player::DeductLives(int i)
+{
+	livesRemaining = (int)fmax(livesRemaining - i, 0);
+}
+
+
+std::vector<glm::vec3> JN_Player::GetAllProjectilePositions()
+{
+	return projectiles->GetAllPositions();
+}
+
 
 void JN_Player::SetUniforms()
 {
 	glUseProgram(shaderProgram);
 
-	auto lightColLocation = glGetUniformLocation(shaderProgram, "lightCol");
-	auto normalMatrixLocation = glGetUniformLocation(shaderProgram, "uNormalMatrix");
-	auto importViewLocation = glGetUniformLocation(shaderProgram, "uView");
 	auto lightPositionLocation = glGetUniformLocation(shaderProgram, "lightPos");
+	auto lightPositionLocation2 = glGetUniformLocation(shaderProgram, "lightPos2");
+
+	auto lightColLocation = glGetUniformLocation(shaderProgram, "lightCol");
+	auto lightColLocation2 = glGetUniformLocation(shaderProgram, "lightCol2");
+
+	auto normalMatrixLocation = glGetUniformLocation(shaderProgram, "uNormalMatrix");
 	auto importModelLocation = glGetUniformLocation(shaderProgram, "uModel");
 	auto importProjectionLocation = glGetUniformLocation(shaderProgram, "uProjection");
+	auto importViewLocation = glGetUniformLocation(shaderProgram, "uView");
 
 	glUniform3fv(lightColLocation, 1, glm::value_ptr(lightCol));
 	glUniform3fv(lightPositionLocation, 1, glm::value_ptr(lightPos));
+
+	glUniform3fv(lightColLocation2, 1, glm::value_ptr(lightCol2));
+	glUniform3fv(lightPositionLocation2, 1, glm::value_ptr(lightPos2));
 
 	glUniformMatrix4fv(importModelLocation, 1, GL_FALSE, glm::value_ptr(transform.Multiply()));
 	glUniformMatrix4fv(importViewLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix));
@@ -159,5 +180,5 @@ void JN_Player::SetUniforms()
 
 void JN_Player::Shoot()
 {
-	std::cout << "Shoot!\n";
+	projectiles->Shoot(transform, 1.0f);
 }

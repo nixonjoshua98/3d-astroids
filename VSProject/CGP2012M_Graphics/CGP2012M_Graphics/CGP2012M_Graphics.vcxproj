@@ -31,6 +31,8 @@
     <ClInclude Include="JN_Light.h" />
     <ClInclude Include="JN_Model.h" />
     <ClInclude Include="JN_Player.h" />
+    <ClInclude Include="JN_Projectile.h" />
+    <ClInclude Include="JN_ProjectileManager.h" />
     <ClInclude Include="JN_ScreenBoundaries.h" />
     <ClInclude Include="JN_Shader.h" />
     <ClInclude Include="JN_Bubble.h" />
@@ -52,6 +54,8 @@
     <ClCompile Include="JN_Heart.cpp" />
     <ClCompile Include="JN_Model.cpp" />
     <ClCompile Include="JN_Player.cpp" />
+    <ClCompile Include="JN_Projectile.cpp" />
+    <ClCompile Include="JN_ProjectileManager.cpp" />
     <ClCompile Include="JN_Shader.cpp" />
     <ClCompile Include="JN_Bubble.cpp" />
     <ClCompile Include="JN_Skybox.cpp" />

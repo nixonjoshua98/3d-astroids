@@ -27,10 +27,14 @@ public:
 private:
 	bool isRunning = true;
 
+	float spawnTimer = 0.0f;
+
 	glm::mat4 projectionMatrix;
 	glm::mat4 viewMatrix;
 
 	JN_Light light;
+	JN_Light light2;
+
 	JN_ScreenBoundaries screenBoundaries;
 
 	std::shared_ptr<JN_Application> app;
@@ -45,5 +49,7 @@ private:
 	void Update();
 	void LateUpdate();
 	void Render();
+
+	void Spawn();
 };
 

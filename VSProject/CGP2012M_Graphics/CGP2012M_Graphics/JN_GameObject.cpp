@@ -10,11 +10,13 @@ float GetTime()
 
 JN_GameObject::JN_GameObject()
 {
+
 }
 
 
 JN_GameObject::~JN_GameObject()
 {
+
 }
 
 void JN_GameObject::SetShaders(std::string v, std::string f)
@@ -27,4 +29,10 @@ void JN_GameObject::SetShaders(std::string v, std::string f)
 	glAttachShader(shaderProgram, vShader.GetShaderID());
 	glAttachShader(shaderProgram, fShader.GetShaderID());
 	glLinkProgram(shaderProgram);
+}
+
+
+float JN_GameObject::DistanceBetween(glm::vec3 col)
+{
+	return transform.DistanceBetween(col);
 }

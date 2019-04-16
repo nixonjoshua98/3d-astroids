@@ -44,3 +44,50 @@ void JN_BubbleManager::Render()
 	for (auto b : bubbles)
 		b->Render();
 }
+
+
+int JN_BubbleManager::CollideWithPlayer(glm::vec3 plr)
+{
+	int hits = 0;
+	for (int i = 0; i < bubbles.size();)
+	{
+		float distance = bubbles[i]->DistanceBetween(plr);
+
+		if (distance < 0.5f)
+		{
+			delete bubbles[i];
+			bubbles[i] = NULL;
+			bubbles.erase(bubbles.begin() + i);
+			hits++;
+
+			continue;
+		}
+
+		i++;
+	}
+
+	return hits;
+}
+
+void JN_BubbleManager::CollideWithProjectiles(std::vector<glm::vec3> projectiles)
+{
+	for (int i = 0; i < bubbles.size();)
+	{
+		bool hit = false;
+		for (glm::vec3 pos : projectiles)
+		{
+			float distance = bubbles[i]->DistanceBetween(pos);
+
+			if (distance < 0.5f)
+			{
+				delete bubbles[i];
+				bubbles[i] = NULL;
+				bubbles.erase(bubbles.begin() + i);
+				hit = true;
+
+				break;
+			}
+		}
+		if (!hit) i++;
+	}
+}

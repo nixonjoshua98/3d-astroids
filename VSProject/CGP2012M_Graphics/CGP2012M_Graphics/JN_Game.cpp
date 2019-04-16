@@ -12,18 +12,17 @@ JN_Game::JN_Game(std::shared_ptr<JN_Application> app)
 {
 	this->app = app;
 
+	screenBoundaries = JN_ScreenBoundaries({ 2.0f, -2.0f, 1.0f, -1.0f, 0.0f, 0.0f });
+	light = JN_Light{ glm::vec3(-2.0f, 0.0f, -1.0f), glm::vec3(0.4f, 1.0f, 1.0f) };
+	light2 = JN_Light{ glm::vec3(2.0f, 0.0f, -1.0f), glm::vec3(0.4f, 1.0f, 1.0f) };
+
 	camera = std::make_unique<JN_Camera>();
 	skybox = std::make_unique<JN_Skybox>(viewMatrix, projectionMatrix);
-	player = std::make_unique<JN_Player>(light.col, light.pos, viewMatrix, projectionMatrix);
+	player = std::make_unique<JN_Player>(light.col, light.pos, light2.col, light2.pos, viewMatrix, projectionMatrix);
 	bg = std::make_unique<JN_Background>(viewMatrix, projectionMatrix);
-	bubbles = std::make_unique<JN_BubbleManager>(light.col, light.pos, viewMatrix, projectionMatrix);
-
-	screenBoundaries = JN_ScreenBoundaries({ 2.0f, -2.0f, 1.0f, -1.0f, 0.0f, 0.0f });
-	light = JN_Light{ glm::vec3(1.0f, 0.0f, 0.5f), glm::vec3(1.0f, 1.0f, 0.98f) };
+	bubbles = std::make_unique<JN_BubbleManager>(light2.col, light2.pos, viewMatrix, projectionMatrix);
 
 	projectionMatrix = glm::perspective(glm::radians(90.0f), app->aspectRatio, 0.1f, 100.0f);
-
-	bubbles->SpawnBubble();
 }
 
 
@@ -37,12 +36,16 @@ void JN_Game::Run()
 {
 	while (isRunning)
 	{
-		JN_FrameLock lock = JN_FrameLock(60, JN_Time::deltaTime);
+		{
+			JN_FrameLock lock = JN_FrameLock(60, JN_Time::deltaTime);
 
-		Input();
-		Update();
-		LateUpdate();
-		Render();
+			Input();
+			Update();
+			LateUpdate();
+			Render();
+		}
+
+		spawnTimer += JN_Time::deltaTime;
 	}
 }
 
@@ -100,19 +103,32 @@ void JN_Game::Input()
 
 void JN_Game::Update()
 {
-	if (player->IsDead())
-	{
-		isRunning = false;
-	}
+	// End the game loop once the player dies
+	if (player->IsDead()) { isRunning = false; }
 
-	camera->newTarget = player->GetTransform().GetPosition();
+	glm::vec3 plrPos = player->GetTransform().GetPosition();
 
-	light.pos = camera->newPos;
+	// Point the camera towards the player
+	camera->newTarget = plrPos;
 
+	// Check collision with player - get collision total
+	int hits = bubbles->CollideWithPlayer(plrPos);
+
+	// Destroy bubbles which are hit by projectiles
+	bubbles->CollideWithProjectiles(player->GetAllProjectilePositions());
+
+	// Update internal camera stuff
 	camera->Update();
 
+	// Update the view matrix
 	viewMatrix = glm::lookAt(camera->GetCurrentPos(), camera->GetCurrentTarget(), camera->UP);
 
+	Spawn();	// Check if a new bubble needs to be spawned
+
+	// Take health away from the player
+	player->DeductLives(hits);
+
+	// Update objects - and uniforms
 	skybox->Update();
 	bg->Update();
 	player->Update();
@@ -122,7 +138,7 @@ void JN_Game::Update()
 
 void JN_Game::LateUpdate()
 {
-	//bubbles->SpawnBubble();
+
 }
 
 
@@ -136,4 +152,15 @@ void JN_Game::Render()
 	bubbles->Render();
 
 	SDL_GL_SwapWindow(app->GetWindow());
+}
+
+
+void JN_Game::Spawn()
+{
+	if (spawnTimer >= 4.0f)
+	{
+		spawnTimer = 0.0f;
+
+		bubbles->SpawnBubble();
+	}
 }

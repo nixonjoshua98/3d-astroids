@@ -6,28 +6,28 @@
 #include <ctime>
 
 /*
-	3D Geometry:
+	3D Geometry: (25%)
 		Pass:	Geometry for bubbles & player						DONE
 		2:2:	Visible world boundaries							DONE
 		2:1:	Skybox												DONE
 		1st:	.obj files with textures							DONE
 		1st+:	Normal data is also loaded							DONE
 
-	Playable Game:
+	Playable Game: (5%)
 		Pass:	Player can move/rotate and bubbles move				DONE
 		2:2:	Bubbles stay in world boundaries					DONE
-		2:1:	Bubbles destroyed on hit
+		2:1:	Bubbles destroyed on hit							DONE
 		1st:	Lives/score shown on 2D HUD							DONE
 		1st+:	Gameplay modifying feature
 
-	Lighting & Textures:
+	Lighting & Textures: (30%)
 		Pass:	Geometry is textured								DONE
 		2:2:	Lighting from one source							DONE
 		2:1:	Multiple light sources
 		1st:	Dynamic lighting (eg player has a light source)
 		1st+:	Different lighting models can be selected
 
-	Shaders
+	Shaders (25%)
 		Pass:	Shaders in own file									DONE
 		2:2:	Pass variable data									DONE
 		2:1:	Random colouring of the bubble is created			DONE
