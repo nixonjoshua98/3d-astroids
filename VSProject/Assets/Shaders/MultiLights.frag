@@ -16,22 +16,33 @@ uniform sampler2D aTex;
 
 void main()
 {
-	float lightAmbientStrength = 0.2f;
-	vec3 objectAmbientReflectionCoeff = vec3(0.6f, 0.3f, 0.3f);
+	vec3 nNormal = normalize(normals);
+	
+	
+	// Light 1
+	float lightAmbientStrength = 0.3f;
+	vec3 objectAmbientReflectionCoeff = vec3(1.0f, 1.0f, 1.0f);
 	
 	vec3 ambient = (lightAmbientStrength * objectAmbientReflectionCoeff) * lightColour;
-	
-	vec3 nNormal = normalize(normals);
-		
 	vec3 lightDirection1 = normalize(lightPosition - fragmentPosition);
-	vec3 lightDirection2 = normalize(lightPosition2 - fragmentPosition);	
-	
 	float diffuseStrength = max(dot(nNormal, lightDirection1), 0.0f);
-	
 	vec3 objectDiffuseReflectionCoeff = vec3(1.0f, 1.0f, 1.0f);
     vec3 diffuse = (diffuseStrength * objectDiffuseReflectionCoeff) * lightColour;
 	
+	
+	// Light 2
+	float lightAmbientStrength2 = 0.3f;
+	vec3 objectAmbientReflectionCoeff2 = vec3(1.0f, 1.0f, 1.0f);
+	
+	vec3 ambient2 = (lightAmbientStrength2 * objectAmbientReflectionCoeff2) * lightColour2;
+	vec3 lightDirection2 = normalize(lightPosition2 - fragmentPosition);
+	float diffuseStrength2 = max(dot(nNormal, lightDirection2), 0.0f);
+	vec3 objectDiffuseReflectionCoeff2 = vec3(1.0f, 1.0f, 1.0f);
+    vec3 diffuse2 = (diffuseStrength2 * objectDiffuseReflectionCoeff2) * lightColour2;
+	
+	// --
 	vec4 textureColour = texture(aTex, textureCoordinate);	
 	
-	vertColour = (vec4((ambient+diffuse),1.0) * (textureColour));	
+	// Out	
+	vertColour = (vec4((ambient + diffuse + ambient2 + diffuse2),1.0) * (textureColour));	
 }
