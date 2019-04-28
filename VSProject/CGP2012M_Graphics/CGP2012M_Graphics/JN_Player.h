@@ -31,12 +31,18 @@ private:
 
 	std::unique_ptr<JN_ProjectileManager> projectiles;
 
+	float speedMultiplier = 1.0f;
+
+	float teleportCooldown = 0.0f;
+
 	std::vector<JN_Heart> hearts;
 
 	int livesRemaining = 3;
 
 	bool isHoldingSpace = false;
 	bool isMovingForward = false;
+	bool isShooting = false;
+	bool isReadyToTeleport = false;
 
 	glm::vec3& lightCol;
 	glm::vec3& lightPos;

@@ -1,8 +1,9 @@
 #include "JN_Camera.h"
+#include "JN_Time.h"
 
 #include <iostream>
 
-#define PRINT(x) std::cout << "Log: " << x << std::endl;
+#define LOG_POS(p) std::cout << "> " << p.x << ", " << p.y << ", " << p.z << std::endl;
 
 
 JN_Camera::JN_Camera()
@@ -10,6 +11,8 @@ JN_Camera::JN_Camera()
 	newPos = glm::vec3(0.0f, 0.0f, 4.0f);
 	newTarget = glm::vec3(0.0f, 0.0f, 0.0f);
 	speed = 0.2f;
+
+	currentTarget = glm::vec3(1.0f);
 
 	viewMatrix = glm::lookAt(currentPos, glm::normalize(currentPos - currentTarget), UP);
 
@@ -26,5 +29,11 @@ JN_Camera::~JN_Camera()
 void JN_Camera::Update()
 {
 	currentPos = newPos;
-	currentTarget = newTarget;
+
+	currentTarget.x = newTarget.x;
+	currentTarget.y = newTarget.y;
+	currentTarget.z = newTarget.z;
+
+
+	//LOG_POS(currentTarget);
 }

@@ -58,6 +58,15 @@ void JN_Player::Input(SDL_Event e)
 				Shoot();
 			isHoldingSpace = true;
 			break;
+
+		case SDLK_h:
+			speedMultiplier = 1.5f;
+			break;
+
+		case SDLK_j:
+			if (teleportCooldown <= 0.0f)
+				isReadyToTeleport = true;
+			break;
 		}
 		break;
 
@@ -68,11 +77,12 @@ void JN_Player::Input(SDL_Event e)
 			isMovingForward = false;
 			break;
 
-		case SDLK_z:
-			//livesRemaining--;
-			break;
 		case SDLK_SPACE:
 			isHoldingSpace = false;
+			break;
+
+		case SDLK_h:
+			speedMultiplier = 1.0f;
 			break;
 		}
 		break;
@@ -85,6 +95,8 @@ void JN_Player::Update()
 	// L/R 5.7
 	// T/B 4.4
 
+	teleportCooldown -= JN_Time::deltaTime;
+
 	for (int i = 0; i < livesRemaining; i++)
 		hearts[i].Update();
 
@@ -92,7 +104,13 @@ void JN_Player::Update()
 
 	if (isMovingForward)
 	{
-		transform.MoveForward2D(PLAYER_SPEED * JN_Time::deltaTime);
+		if (isReadyToTeleport)
+		{
+			teleportCooldown = 2.0f;
+			transform.MoveForward2D(PLAYER_SPEED * speedMultiplier);
+		}
+
+		transform.MoveForward2D(PLAYER_SPEED * speedMultiplier * JN_Time::deltaTime);
 
 		auto pos = transform.GetPosition();
 
@@ -114,6 +132,8 @@ void JN_Player::Update()
 		}
 	}
 
+	isReadyToTeleport = false;
+
 	SetUniforms();
 }
 
@@ -133,6 +153,7 @@ void JN_Player::Render()
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glUseProgram(0);
 }
+
 
 void JN_Player::DeductLives(int i)
 {
@@ -178,7 +199,10 @@ void JN_Player::SetUniforms()
 	glUseProgram(0);
 }
 
+
 void JN_Player::Shoot()
 {
+	std::cout << "Shoot!\n";
+
 	projectiles->Shoot(transform, 1.0f);
 }

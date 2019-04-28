@@ -108,20 +108,12 @@ void JN_Game::Update()
 
 	glm::vec3 plrPos = player->GetTransform().GetPosition();
 
-	// Point the camera towards the player
-	camera->newTarget = plrPos;
 
 	// Check collision with player - get collision total
 	int hits = bubbles->CollideWithPlayer(plrPos);
 
 	// Destroy bubbles which are hit by projectiles
 	bubbles->CollideWithProjectiles(player->GetAllProjectilePositions());
-
-	// Update internal camera stuff
-	camera->Update();
-
-	// Update the view matrix
-	viewMatrix = glm::lookAt(camera->GetCurrentPos(), camera->GetCurrentTarget(), camera->UP);
 
 	Spawn();	// Check if a new bubble needs to be spawned
 
@@ -138,7 +130,16 @@ void JN_Game::Update()
 
 void JN_Game::LateUpdate()
 {
+	glm::vec3 plrPos = player->GetTransform().GetPosition();
 
+	// Point the camera towards the player
+	camera->newTarget = plrPos;
+
+	// Update internal camera stuff
+	camera->Update();
+
+	// Update the view matrix
+	viewMatrix = glm::lookAt(camera->GetCurrentPos(), camera->GetCurrentTarget(), camera->UP);
 }
 
 

@@ -12,7 +12,7 @@ public:
 	JN_Projectile(glm::vec3&, glm::vec3&, glm::mat4&, glm::mat4&, JN_Transform transform, float lifetime);
 	~JN_Projectile();
 
-	float speed = 4.0f;
+	float speed = 7.0f;
 
 	void Render() override;
 	void Update() override;

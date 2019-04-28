@@ -6,6 +6,8 @@
 #include <ctime>
 
 /*
+	Report: (15%)
+
 	3D Geometry: (25%)
 		Pass:	Geometry for bubbles & player						DONE
 		2:2:	Visible world boundaries							DONE
@@ -18,7 +20,7 @@
 		2:2:	Bubbles stay in world boundaries					DONE
 		2:1:	Bubbles destroyed on hit							DONE
 		1st:	Lives/score shown on 2D HUD							DONE
-		1st+:	Gameplay modifying feature
+		1st+:	Gameplay modifying feature							DONE
 
 	Lighting & Textures: (30%)
 		Pass:	Geometry is textured								DONE
