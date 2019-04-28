@@ -150,10 +150,10 @@ void JN_Player::SetUniforms()
 {
 	glUseProgram(shaderProgram);
 
-	auto lightPositionLocation = glGetUniformLocation(shaderProgram, "lightPos");
+	auto lightPositionLocation = glGetUniformLocation(shaderProgram, "lightPos1");
 	auto lightPositionLocation2 = glGetUniformLocation(shaderProgram, "lightPos2");
 
-	auto lightColLocation = glGetUniformLocation(shaderProgram, "lightCol");
+	auto lightColLocation = glGetUniformLocation(shaderProgram, "lightCol1");
 	auto lightColLocation2 = glGetUniformLocation(shaderProgram, "lightCol2");
 
 	auto normalMatrixLocation = glGetUniformLocation(shaderProgram, "uNormalMatrix");
@@ -177,6 +177,7 @@ void JN_Player::SetUniforms()
 
 	glUseProgram(0);
 }
+
 
 void JN_Player::Shoot()
 {

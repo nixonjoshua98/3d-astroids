@@ -13,8 +13,8 @@ JN_Game::JN_Game(std::shared_ptr<JN_Application> app)
 	this->app = app;
 
 	screenBoundaries = JN_ScreenBoundaries({ 2.0f, -2.0f, 1.0f, -1.0f, 0.0f, 0.0f });
-	light = JN_Light{ glm::vec3(-2.0f, 0.0f, -1.0f), glm::vec3(0.4f, 1.0f, 1.0f) };
-	light2 = JN_Light{ glm::vec3(2.0f, 0.0f, -1.0f), glm::vec3(0.4f, 1.0f, 1.0f) };
+	light = JN_Light{ glm::vec3(5.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 1.0f) };
+	light2 = JN_Light{ glm::vec3(-5.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 0.98f) };
 
 	camera = std::make_unique<JN_Camera>();
 	skybox = std::make_unique<JN_Skybox>(viewMatrix, projectionMatrix);

@@ -43,7 +43,6 @@ void JN_Bubble::Update()
 	else if (collideTop || collideBtm)
 	{
 		transform.MultiplyDirection(1, -1);
-		//std::cout << pos.x << ", " << pos.y << "\n";
 	}
 	
 	transform.Translate(transform.GetDirection() * BUBBLE_SPEED * JN_Time::deltaTime);
