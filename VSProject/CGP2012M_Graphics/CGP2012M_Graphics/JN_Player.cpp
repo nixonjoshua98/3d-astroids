@@ -22,7 +22,7 @@ JN_Player::JN_Player(glm::vec3& lCol, glm::vec3& lPos, glm::vec3& lCol2, glm::ve
 
 	model.SetBuffers();
 
-	texture.Load("..//..//Assets//Textures//Red.png");
+	texture.Load("..//..//Assets//Textures//White.png");
 }
 
 

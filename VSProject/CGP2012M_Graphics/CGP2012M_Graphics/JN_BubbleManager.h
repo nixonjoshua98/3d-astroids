@@ -7,7 +7,7 @@
 class JN_BubbleManager
 {
 public:
-	JN_BubbleManager(glm::vec3 & lCol, glm::vec3 & lPos, glm::mat4 & vMatrix, glm::mat4 & pMatrix);
+	JN_BubbleManager(glm::vec3 & lCol, glm::vec3 & lPos, glm::vec3 &, glm::vec3 &, glm::mat4 & vMatrix, glm::mat4 & pMatrix);
 	~JN_BubbleManager();
 
 	void SpawnBubble(int i = 1);
@@ -25,6 +25,8 @@ private:
 
 	glm::vec3& lightCol;
 	glm::vec3& lightPos;
+	glm::vec3& lightCol2;
+	glm::vec3& lightPos2;
 	glm::mat4& viewMatrix;
 	glm::mat4& projectionMatrix;
 

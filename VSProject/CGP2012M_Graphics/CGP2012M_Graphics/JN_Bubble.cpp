@@ -2,8 +2,8 @@
 #include "JN_Time.h"
 
 
-JN_Bubble::JN_Bubble(glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::mat4& pMatrix, JN_Model& _model, JN_Texture& tex): 
-	lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix), model(_model), texture(tex)
+JN_Bubble::JN_Bubble(glm::vec3& lCol, glm::vec3& lPos, glm::vec3& lCol2, glm::vec3& lPos2, glm::mat4& vMatrix, glm::mat4& pMatrix, JN_Model& _model, JN_Texture& tex):
+	lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix), model(_model), texture(tex), lightPos2(lPos2), lightCol2(lCol2)
 {
 	// Transforms
 	float angle =  glm::radians((float)(rand() % 360));
@@ -67,17 +67,22 @@ void JN_Bubble::SetUniforms()
 {
 	glUseProgram(shaderProgram);
 
-	auto lightColLocation = glGetUniformLocation(shaderProgram, "lightCol");
+	auto lightColLocation = glGetUniformLocation(shaderProgram, "lightCol1");
 	auto normalMatrixLocation = glGetUniformLocation(shaderProgram, "uNormalMatrix");
 	auto importViewLocation = glGetUniformLocation(shaderProgram, "uView");
-	auto lightPositionLocation = glGetUniformLocation(shaderProgram, "lightPos");
+	auto lightPositionLocation = glGetUniformLocation(shaderProgram, "lightPos1");
 	auto importModelLocation = glGetUniformLocation(shaderProgram, "uModel");
 	auto importProjectionLocation = glGetUniformLocation(shaderProgram, "uProjection");
+	auto lightPositionLocation2 = glGetUniformLocation(shaderProgram, "lightPos2");
+	auto lightColLocation2 = glGetUniformLocation(shaderProgram, "lightCol2");
 
 	auto timeLocation = glGetUniformLocation(shaderProgram, "time");
 
 	glUniform3fv(lightColLocation, 1, glm::value_ptr(lightCol));
 	glUniform3fv(lightPositionLocation, 1, glm::value_ptr(lightPos));
+
+	glUniform3fv(lightColLocation2, 1, glm::value_ptr(lightCol2));
+	glUniform3fv(lightPositionLocation2, 1, glm::value_ptr(lightPos2));
 
 	glUniform1f(timeLocation, GetTime());
 

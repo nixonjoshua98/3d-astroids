@@ -8,7 +8,7 @@ JN_Background::JN_Background(glm::mat4& _viewMatrix, glm::mat4& _projectionMatri
 	square.Init("..//..//Assets//Textures//Background.jpg");
 	border.Init("..//..//Assets//Textures//Border.png");
 
-	transform.Scale(glm::vec3(60.0f, 50.0f, 1.0f));
+	transform.Scale(glm::vec3(80.0f, 60.0f, 1.0f));
 	transform.Translate(glm::vec3(0.0f, 0.0f, -2.0f));
 }
 
@@ -23,7 +23,7 @@ JN_Background::~JN_Background()
 void JN_Background::Render()
 {
 	glUseProgram(shaderProgram);
-	square.Render();
+	//square.Render();
 	border.Render();
 	glUseProgram(0);
 }

@@ -25,8 +25,8 @@
 	Lighting & Textures: (30%)
 		Pass:	Geometry is textured								DONE
 		2:2:	Lighting from one source							DONE
-		2:1:	Multiple light sources
-		1st:	Dynamic lighting (eg player has a light source)
+		2:1:	Multiple light sources								DONE
+		1st:	Dynamic lighting (eg player has a light source)		DONE
 		1st+:	Different lighting models can be selected
 
 	Shaders (25%)

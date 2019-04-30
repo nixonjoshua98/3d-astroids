@@ -20,6 +20,8 @@ public:
 	glm::vec3 newPos;
 	glm::vec3 newTarget;
 
+	glm::vec3 offset = glm::vec3(0.0f);
+
 	float speed;
 
 	void Update();

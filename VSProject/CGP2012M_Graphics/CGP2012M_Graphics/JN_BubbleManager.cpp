@@ -2,7 +2,8 @@
 
 
 
-JN_BubbleManager::JN_BubbleManager(glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatrix, glm::mat4& pMatrix) : lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix)
+JN_BubbleManager::JN_BubbleManager(glm::vec3& lCol, glm::vec3& lPos, glm::vec3& lCol2, glm::vec3& lPos2, glm::mat4& vMatrix, glm::mat4& pMatrix) : 
+	lightCol(lCol), lightPos(lPos), viewMatrix(vMatrix), projectionMatrix(pMatrix), lightPos2(lPos2), lightCol2(lCol2)
 {
 	model = JN_Model();
 
@@ -27,7 +28,7 @@ void JN_BubbleManager::SpawnBubble(int i)
 {
 	for (int j = 0; j < i; j++)
 	{
-		bubbles.push_back(new JN_Bubble{lightCol, lightPos, viewMatrix, projectionMatrix, model, texture });
+		bubbles.push_back(new JN_Bubble{lightCol, lightPos, lightCol2, lightPos2, viewMatrix, projectionMatrix, model, texture });
 	}
 }
 

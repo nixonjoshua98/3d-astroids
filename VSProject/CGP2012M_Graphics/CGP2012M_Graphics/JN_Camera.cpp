@@ -28,12 +28,9 @@ JN_Camera::~JN_Camera()
 
 void JN_Camera::Update()
 {
-	currentPos = newPos;
+	currentPos = newPos + offset;
 
-	currentTarget.x = newTarget.x;
-	currentTarget.y = newTarget.y;
-	currentTarget.z = newTarget.z;
-
+	currentTarget = newTarget;
 
 	//LOG_POS(currentTarget);
 }

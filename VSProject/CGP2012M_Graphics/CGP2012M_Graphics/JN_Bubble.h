@@ -7,7 +7,7 @@
 class JN_Bubble : public JN_GameObject
 {
 public:
-	JN_Bubble(glm::vec3&, glm::vec3&, glm::mat4&, glm::mat4&, JN_Model&, JN_Texture&);
+	JN_Bubble(glm::vec3 & lCol, glm::vec3 & lPos, glm::vec3 & lCol2, glm::vec3 & lPos2, glm::mat4 & vMatrix, glm::mat4 & pMatrix, JN_Model & _model, JN_Texture & tex);
 	~JN_Bubble();
 
 	const float BUBBLE_SPEED = 1.5f;
@@ -21,6 +21,8 @@ private:
 
 	glm::vec3& lightCol;
 	glm::vec3& lightPos;
+	glm::vec3& lightCol2;
+	glm::vec3& lightPos2;
 	glm::mat4& viewMatrix;
 	glm::mat4& projectionMatrix;
 

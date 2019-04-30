@@ -13,14 +13,14 @@ JN_Game::JN_Game(std::shared_ptr<JN_Application> app)
 	this->app = app;
 
 	screenBoundaries = JN_ScreenBoundaries({ 2.0f, -2.0f, 1.0f, -1.0f, 0.0f, 0.0f });
-	light = JN_Light{ glm::vec3(5.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 1.0f) };
-	light2 = JN_Light{ glm::vec3(-5.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 0.98f) };
+	light = JN_Light{ glm::vec3(5.0f, 0.0f, 0.0f), glm::vec3(0.9f, 0.4f, 0.1f) };
+	light2 = JN_Light{ glm::vec3(-5.0f, 0.0f, 0.0f), glm::vec3(0.3f, 1.0f, 0.7f) };
 
 	camera = std::make_unique<JN_Camera>();
 	skybox = std::make_unique<JN_Skybox>(viewMatrix, projectionMatrix);
 	player = std::make_unique<JN_Player>(light.col, light.pos, light2.col, light2.pos, viewMatrix, projectionMatrix);
 	bg = std::make_unique<JN_Background>(viewMatrix, projectionMatrix);
-	bubbles = std::make_unique<JN_BubbleManager>(light2.col, light2.pos, viewMatrix, projectionMatrix);
+	bubbles = std::make_unique<JN_BubbleManager>(light.col, light.pos, light2.col, light2.pos, viewMatrix, projectionMatrix);
 
 	projectionMatrix = glm::perspective(glm::radians(90.0f), app->aspectRatio, 0.1f, 100.0f);
 }
@@ -37,7 +37,7 @@ void JN_Game::Run()
 	while (isRunning)
 	{
 		{
-			JN_FrameLock lock = JN_FrameLock(60, JN_Time::deltaTime);
+			JN_FrameLock lock = JN_FrameLock(600, JN_Time::deltaTime);
 
 			Input();
 			Update();
@@ -81,6 +81,14 @@ void JN_Game::Input()
 				// * * * * F10
 			case SDLK_F10:
 				app->ToggleFullScreen();
+				break;
+
+			case SDLK_DOWN:
+				camera->offset.z += 1.0f;
+				break;
+
+			case SDLK_UP:
+				camera->offset.z -= 1.0f;
 				break;
 
 			default:
@@ -132,6 +140,10 @@ void JN_Game::LateUpdate()
 {
 	glm::vec3 plrPos = player->GetTransform().GetPosition();
 
+	light.pos.x = plrPos.x;
+	light.pos.y = plrPos.y;
+
+
 	// Point the camera towards the player
 	camera->newTarget = plrPos;
 
@@ -148,7 +160,7 @@ void JN_Game::Render()
 	app->ClearContext();
 
 	skybox->Render();
-	//bg->Render();
+	bg->Render();
 	player->Render();
 	bubbles->Render();
 
