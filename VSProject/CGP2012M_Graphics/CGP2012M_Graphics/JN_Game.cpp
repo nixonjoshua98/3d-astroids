@@ -34,10 +34,12 @@ JN_Game::~JN_Game()
 
 void JN_Game::Run()
 {
+	SDL_Delay(5000);
+
 	while (isRunning)
 	{
 		{
-			JN_FrameLock lock = JN_FrameLock(600, JN_Time::deltaTime);
+			JN_FrameLock lock = JN_FrameLock(60, JN_Time::deltaTime);
 
 			Input();
 			Update();

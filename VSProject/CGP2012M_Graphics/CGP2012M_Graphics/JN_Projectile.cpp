@@ -20,7 +20,7 @@ JN_Projectile::JN_Projectile(glm::vec3& lCol, glm::vec3& lPos, glm::mat4& vMatri
 
 	model.SetBuffers();
 
-	texture.Load("..//..//Assets//Textures//Blue.png");
+	texture.Load("..//..//Assets//Textures//Red.png");
 
 }
 
